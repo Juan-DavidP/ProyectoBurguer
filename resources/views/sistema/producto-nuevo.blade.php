@@ -52,19 +52,19 @@
                         <label>Precio: *</label>
                         <input type="text" id="txtPrecio" name="txtPrecio" class="form-control" required>
                   </div>
-                  <div class="form-group col-lg-6">
+                  <div class="form-group col-lg-12">
                         <label>Descripción: *</label>
                         <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" required>
                         <script>
                               ClassicEditor
-                                    .create(document.querySelector("#txtDescripcion"))
-                                    .catch(error => {
-                                          console.error(error);
-                                    });
-                        </script>
+                              .create(document.querySelector("#txtDescripcion"))
+                              .catch(error => {
+                                    console.error(error);
+                              });
+                              </script>
                   </div>
-                  <div class="form-group col-lg-6">
-                        <label>imagen: *</label>
+                  <div class="form-group col-lg-12">
+                        <label>Imagen: *</label>
                         <input type="file" id="imagen" name="imagen" class="form-control-file" accept=".jpg, .jpeg, .png" required>
                         <small class="d-block">Archivos admitidos: .jpg, .jpeg, .png</small>
                   </div>
