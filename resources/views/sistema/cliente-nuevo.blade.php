@@ -42,20 +42,30 @@
 			<div class="form-group col-lg-6">
 				<label>Nombre: *</label>
 				<input type="text" id="txtNombre" name="txtNombre" class="form-control" required>
-				<label class="mt-4">DNI: *</label>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>DNI: *</label>
 				<input type="text" id="txtDNI" name="txtDNI" class="form-control" required>
-				<label class="mt-4">Correo: *</label>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>Correo: *</label>
 				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required>
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Apellido: *</label>
 				<input type="text" name="txtApellido" id="txtApellido" class="form-control" required>
-				<label class="mt-4">Telefono: *</label>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>Telefono: *</label>
 				<input type="tel" name="txtTelefono" id="txtTelefono" class="form-control" required>
-				<label class="mt-4">Clave: *</label>
-				<input type="tel" name="txtClave" id="txtClave" class="form-control" required>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>Clave: *</label>
+				<input type="password" name="txtClave" id="txtClave" class="form-control" required>
 			</div>
 		</div>
-	</form>
+</div>
+</div>
+</form>
 </div>
 @endsection
