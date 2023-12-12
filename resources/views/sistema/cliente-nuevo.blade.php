@@ -42,8 +42,8 @@
 			<div class="form-group col-lg-6">
 				<label>Nombre: *</label>
 				<input type="text" id="txtNombre" name="txtNombre" class="form-control" required>
-				<label class="mt-4">Documento: *</label>
-				<input type="text" id="txtDocumento" name="txtDocumento" class="form-control" required>
+				<label class="mt-4">DNI: *</label>
+				<input type="text" id="txtDNI" name="txtDNI" class="form-control" required>
 				<label class="mt-4">Correo: *</label>
 				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required>
 			</div>
