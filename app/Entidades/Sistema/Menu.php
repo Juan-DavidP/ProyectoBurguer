@@ -125,9 +125,11 @@ class Menu extends Model
 
     public function guardar() {
         $sql = "UPDATE sistema_menues SET
-            nombre='$this->nombre',
-            id_padre='$this->id_padre',
-            orden=$this->orden,
+            nombre='$this->nombre',";
+            if($this->id_padre != ""){
+                $sql .= "id_padre='$this->id_padre',";
+            }
+        $sql .= "orden=$this->orden,
             activo='$this->activo',
             url='$this->url',
             css='$this->css'
