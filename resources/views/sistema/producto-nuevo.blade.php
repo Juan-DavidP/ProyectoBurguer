@@ -14,7 +14,7 @@
       <li class="breadcrumb-item active">Modificar</li>
 </ol>
 <ol class="toolbar">
-      <li class="btn-item"><a title="Nuevo" href="/admin/sistema/cliente/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
+      <li class="btn-item"><a title="Nuevo" href="/admin/sistema/producto/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
       <li class="btn-item"><a title="Guardar" href="#" class="fa fa-floppy-o" aria-hidden="true" onclick="javascript: $('#modalGuardar').modal('toggle');"><span>Guardar</span></a>
       </li>
       @if($globalId > 0)
@@ -52,16 +52,22 @@
                         <label>Precio: *</label>
                         <input type="text" id="txtPrecio" name="txtPrecio" class="form-control" required>
                   </div>
+                  <div class="form-group col-lg-6">
+                        <label>Categoría: *</label>
+                        <select type="text" id="lstCategoria" name="lstCategoria" class="form-control selectpicker" data-live-search="true" required>
+                              <option value="" disabled selected>Seleccionar</option>
+                        </select>
+                  </div>
                   <div class="form-group col-lg-12">
                         <label>Descripción: *</label>
                         <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" required>
                         <script>
                               ClassicEditor
-                              .create(document.querySelector("#txtDescripcion"))
-                              .catch(error => {
-                                    console.error(error);
-                              });
-                              </script>
+                                    .create(document.querySelector("#txtDescripcion"))
+                                    .catch(error => {
+                                          console.error(error);
+                                    });
+                        </script>
                   </div>
                   <div class="form-group col-lg-12">
                         <label>Imagen: *</label>
