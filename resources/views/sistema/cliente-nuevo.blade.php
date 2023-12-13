@@ -56,7 +56,7 @@
 				<input type="text" name="txtApellido" id="txtApellido" class="form-control" required>
 			</div>
 			<div class="form-group col-lg-6">
-				<label>Telefono: *</label>
+				<label>Teléfono: *</label>
 				<input type="tel" name="txtTelefono" id="txtTelefono" class="form-control" required>
 			</div>
 			<div class="form-group col-lg-6">
