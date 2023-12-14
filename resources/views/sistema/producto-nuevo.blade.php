@@ -77,4 +77,16 @@
             </div>
       </form>
 </div>
+<script>
+   function guardar() {
+        if ($("#form1").valid()) {
+            modificado = false;
+            form1.submit();
+        } else {
+            $("#modalGuardar").modal('toggle');
+            msgShow("Corrija los errores e intente nuevamente.", "danger");
+            return false;
+        }
+    }
+</script>
 @endsection
