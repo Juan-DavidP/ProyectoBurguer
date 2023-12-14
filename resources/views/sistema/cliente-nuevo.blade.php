@@ -44,20 +44,20 @@
 				<input type="text" id="txtNombre" name="txtNombre" class="form-control" required>
 			</div>
 			<div class="form-group col-lg-6">
-				<label>DNI: *</label>
-				<input type="text" id="txtDNI" name="txtDNI" class="form-control" required>
-			</div>
-			<div class="form-group col-lg-6">
-				<label>Correo: *</label>
-				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required>
-			</div>
-			<div class="form-group col-lg-6">
 				<label>Apellido: *</label>
 				<input type="text" name="txtApellido" id="txtApellido" class="form-control" required>
 			</div>
 			<div class="form-group col-lg-6">
+				<label>DNI: *</label>
+				<input type="text" id="txtDNI" name="txtDNI" class="form-control" required>
+			</div>
+			<div class="form-group col-lg-6">
 				<label>Teléfono: *</label>
 				<input type="tel" name="txtTelefono" id="txtTelefono" class="form-control" required>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>Correo: *</label>
+				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required>
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Clave: *</label>
