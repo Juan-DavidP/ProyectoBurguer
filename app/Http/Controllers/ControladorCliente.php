@@ -28,6 +28,11 @@ class ControladorCliente extends Controller
             if ($entidad->nombre == "") {
                 $msg["ESTADO"] = MSG_ERROR;
                 $msg["MSG"] = "Complete todos los datos";
+
+                $cliente = new Cliente();
+                $cliente->obtenerPorId($entidad->idcliente);
+                return view('sistema.cliente-nuevo', compact('msg', 'cliente', 'titulo')) . '?id=' . $entidad->idcliente;
+
             } else {
                 if ($_POST["id"] > 0) {
                     //Es actualizacion
@@ -43,19 +48,13 @@ class ControladorCliente extends Controller
                     $msg["MSG"] = OKINSERT;
                 }
              
-                $_POST["id"] = $entidad->idmenu;
-                return view('sistema.menu-listar', compact('titulo', 'msg'));
+                $_POST["id"] = $entidad->idcliente;
+                $titulo = "Listado de clientes";
+                return view('sistema.cliente-listar', compact('titulo', 'msg'));
             }
         } catch (Exception $e) {
             $msg["ESTADO"] = MSG_ERROR;
             $msg["MSG"] = ERRORINSERT;
         }
-
-        $id = $entidad->idmenu;
-        $menu = new Menu();
-        $menu->obtenerPorId($id);
-
-        return view('sistema.menu-nuevo', compact('msg', 'menu', 'titulo')) . '?id=' . $menu->idmenu;
-
     }
 }
