@@ -123,3 +123,10 @@ Route::post('/admin/postulacion/nuevo', 'ControladorPostulacion@guardar');
 Route::get('/admin/sucursales', 'ControladorSucursal@index');
 Route::get('/admin/sucursal/nuevo', 'ControladorSucursal@nuevo');
 Route::post('/admin/sucursal/nuevo', 'ControladorSucursal@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR CATEGORIAS                          */
+/* --------------------------------------------- */
+Route::get('/admin/categorias', 'ControladorCategoria@index');
+Route::get('/admin/categoria/nuevo', 'ControladorCategoria@nuevo');
+Route::post('/admin/categoria/nuevo', 'ControladorCategoria@guardar');
