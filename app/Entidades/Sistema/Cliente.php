@@ -14,9 +14,7 @@ class Cliente extends Model
         'idcliente', 'nombre', 'apellido', 'correo', 'telefono', 'dni', 'clave',
     ];
 
-    protected $hidden = [
-
-    ];
+    protected $hidden = [];
 
     public function cargarDesdeRequest($request)
     {
@@ -88,9 +86,10 @@ class Cliente extends Model
                 $this->telefono,
                 $this->dni,
                 $this->clave,
-                $this->idcliente]);
+                $this->idcliente
+            ]);
         } else {
-               $sql = "UPDATE clientes SET
+            $sql = "UPDATE clientes SET
             nombre='?',
             apellido='?',
             correo='?',
@@ -103,9 +102,9 @@ class Cliente extends Model
                 $this->correo,
                 $this->telefono,
                 $this->dni,
-                $this->idcliente]); 
+                $this->idcliente
+            ]);
         }
-
     }
 
     public function eliminar()
