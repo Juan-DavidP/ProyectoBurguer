@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entidades\Sistema\Categoria;
 require app_path() . '/start/constants.php';
 
-class ControladorCategoria extends COntroller
+class ControladorCategoria extends Controller
 {
       public function nuevo()
       {
