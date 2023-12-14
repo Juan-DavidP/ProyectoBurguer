@@ -23,21 +23,21 @@ class Producto extends Model
         $this->nombre = $request->input('txtNombre');
         $this->cantidad = $request->input('txtCantidad');
         $this->precio = $request->input('txtPrecio');
-        $this->descripcion = $request->input('descripcion');
+        $this->descripcion = $request->input('txtDescripcion');
         $this->imagen = "";
-        /* $this->fk_idcategoria = $request->input('fk_idcategoria') != "0" ? $request->input('fk_idcategoria') : $this->fk_idcategoria;*/
+        $this->fk_idcategoria = $request->input('lstCategoria');
     }
 
     public function obtenerTodos()
     {
         $sql = "SELECT 
-        'idproducto', 
-        'nombre', 
-        'cantidad', 
-        'precio', 
-        'descripcion', 
-        'imagen',
-        'fk_idcategoria' FROM productos";
+        idproducto, 
+        nombre, 
+        cantidad, 
+        precio, 
+        descripcion, 
+        imagen,
+        fk_idcategoria FROM productos";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }
@@ -45,13 +45,13 @@ class Producto extends Model
     public function obtenerPorId($idProducto)
     {
         $sql = "SELECT 
-        'idproducto', 
-        'nombre', 
-        'cantidad', 
-        'precio', 
-        'descripcion', 
-        'imagen',
-        'fk_idcategoria' FROM productos WHERE idproducto = $idProducto";
+        idproducto, 
+        nombre, 
+        cantidad, 
+        precio, 
+        descripcion, 
+        imagen,
+        fk_idcategoria FROM productos WHERE idproducto = $idProducto";
         $lstRetorno = DB::select($sql);
 
         if (count($lstRetorno) > 0) {
