@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Entidades\Sistema\Cliente;
+require app_path() . '/start/constants.php';
+
 
 class ControladorCliente extends Controller
 {

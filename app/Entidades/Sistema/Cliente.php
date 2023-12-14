@@ -25,7 +25,7 @@ class Cliente extends Model
         $this->apellido = $request->input('txtApellido');
         $this->correo = $request->input('txtCorreo');
         $this->telefono = $request->input('txtTelefono');
-        $this->dni = $request->input('txtDni');
+        $this->dni = $request->input('txtDNI');
         $this->clave = $request->input('txtClave') != "" ? password_hash($request->input('txtClave'), PASSWORD_DEFAULT) : "";
     }
 
@@ -123,7 +123,7 @@ class Cliente extends Model
                   correo,
                   telefono,
                   dni,
-                  clave,
+                  clave
             ) VALUES (?, ?, ?, ?, ?, ?);";
         $result = DB::insert($sql, [
             $this->nombre,
@@ -131,7 +131,7 @@ class Cliente extends Model
             $this->correo,
             $this->telefono,
             $this->dni,
-            $this->clave,
+            $this->clave
         ]);
         return $this->idcliente = DB::getPdo()->lastInsertId();
     }
