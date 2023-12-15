@@ -18,12 +18,17 @@
 @endsection
 @section('contenido')
 <?php
+
+use App\Entidades\Sistema\Cliente;
+
 if (isset($msg)) {
     echo '<div id = "msg"></div>';
     echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
 }
+$cliente = new Cliente();
+$clientes= $cliente->obtenerTodos();
 ?>
-<table id="grilla" class="display">
+<table id="grilla" class="display table table-bordered table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -33,6 +38,27 @@ if (isset($msg)) {
             <th>Teléfono</th>
         </tr>
     </thead>
-</table> 
+    <tbody>
+        <?php foreach ($clientes as $cliente): ?>
+            <tr>
+                <td>
+                    <?php echo $cliente->nombre; ?>
+                </td>
+                <td>
+                    <?php echo $cliente->apellido; ?>
+                </td>
+                <td>
+                    <?php echo $cliente->dni; ?>
+                </td>
+                <td>
+                    <?php echo $cliente->correo; ?>
+                </td>
+                <td>
+                    <?php echo $cliente->telefono; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
 @endsection

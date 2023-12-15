@@ -26,7 +26,7 @@ class Categoria extends Model
       {
             $sql = "SELECT
                   idcategoria,
-                  nombre,
+                  nombre
                 FROM categorias ORDER BY nombre";
             $lstRetorno = DB::select($sql);
             return $lstRetorno;
@@ -36,7 +36,7 @@ class Categoria extends Model
       {
             $sql = "SELECT
                   idcliente,
-                  nombre,
+                  nombre
                 FROM categorias WHERE idcategoria = $idcategoria";
             $lstRetorno = DB::select($sql);
 

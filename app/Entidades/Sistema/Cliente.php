@@ -36,8 +36,8 @@ class Cliente extends Model
                   correo,
                   telefono,
                   dni,
-                  clave,
-                FROM clientes ORDER BY nombre";
+                  clave
+                FROM clientes";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }
@@ -51,7 +51,7 @@ class Cliente extends Model
                   correo,
                   telefono,
                   dni,
-                  clave,
+                  clave
                 FROM clientes WHERE idcliente = $idCliente";
         $lstRetorno = DB::select($sql);
 
