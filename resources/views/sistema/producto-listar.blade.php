@@ -18,30 +18,47 @@
 @endsection
 @section('contenido')
 <?php
+
+use App\Entidades\Sistema\Producto;
+
+
 if (isset($msg)) {
     echo '<div id = "msg"></div>';
     echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
 }
+
+
+$producto = new Producto();
+$productos = $producto->obtenerTodos();
+
 ?>
-<table id="grilla" class="display">
+<table id="grilla" class="display table table-bordered table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
             <th>Cantidad</th>
             <th>Precio</th>
-            <th>Categoría</th>
             <th>Imagen</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        <?php foreach ($productos as $producto) : ?>
+            <tr>
+                <td>
+                    <?php echo $producto->nombre; ?>
+                </td>
+                <td>
+                    <?php echo $producto->cantidad; ?>
+                </td>
+                <td>
+                    $ <?php echo number_format($producto->precio, 2, ",", "."); ?>
+                </td>
+                <td>
+                    <img src="files/<?php echo $producto->imagen; ?>" class="img-thumbnail">
+                </td>
+            </tr>
+        <?php endforeach; ?>
     </tbody>
-</table> 
+</table>
 
 @endsection

@@ -18,21 +18,37 @@
 @endsection
 @section('contenido')
 <?php
+
+use App\Entidades\Sistema\Categoria;
+
+
+
 if (isset($msg)) {
     echo '<div id = "msg"></div>';
     echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
 }
+
+$categoria = new Categoria();
+$categorias= $categoria->obtenerTodos();
+
+
+
+
 ?>
-<table id="grilla" class="display">
+<table id="grilla" class="display table table-bordered table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td></td>
-        </tr>
+        <?php foreach ($categorias as $categoria): ?>
+            <tr>
+                <td>
+                    <?php echo $categoria->nombre; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
     </tbody>
 </table> 
 

@@ -5,7 +5,7 @@ namespace App\Entidades\Sistema;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Producto extends Model
+class Postulacion extends Model
 {
     protected $table = 'postulaciones';
     public $timestamps = false;
@@ -69,7 +69,7 @@ class Producto extends Model
 
     public function guardar()
     {
-        $sql = "UPDATE productos SET
+        $sql = "UPDATE postulaciones SET
         nombre = '?',
         apellido = '?',
         telefono = '?',

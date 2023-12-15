@@ -24,7 +24,7 @@
 </ol>
 <script>
       function fsalir() {
-            location.href = "/admin/clientes";
+            location.href = "/admin/productos";
       }
 </script>
 @endsection
@@ -32,9 +32,20 @@
 <div class="panel-body">
       <div id="msg"></div>
       <?php
+
+      use App\Entidades\Sistema\Categoria;
+      use App\Entidades\Sistema\Producto;
+
       if (isset($msg)) {
             echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
       }
+
+      $categoria = new Categoria();
+      $aCategorias = $categoria->obtenerTodos();
+
+      $producto = new Producto();
+      $productos = $producto->obtenerTodos();
+
       ?>
       <form id="form1" method="POST">
             <div class="row">
@@ -56,6 +67,9 @@
                         <label>Categoría: *</label>
                         <select type="text" id="lstCategoria" name="lstCategoria" class="form-control selectpicker" data-live-search="true" required>
                               <option value="" disabled selected>Seleccionar</option>
+                              <?php foreach ($aCategorias as $tipo) : ?>
+                                    <option value="<?php echo $tipo->idcategoria; ?>" <?php echo ($tipo->idcategoria == $producto->fk_idcategoria) ? 'selected' : ''; ?>><?php echo $tipo->nombre; ?></option>
+                              <?php endforeach; ?>
                         </select>
                   </div>
                   <div class="form-group col-lg-12">
@@ -78,15 +92,15 @@
       </form>
 </div>
 <script>
-   function guardar() {
-        if ($("#form1").valid()) {
-            modificado = false;
-            form1.submit();
-        } else {
-            $("#modalGuardar").modal('toggle');
-            msgShow("Corrija los errores e intente nuevamente.", "danger");
-            return false;
-        }
-    }
+      function guardar() {
+            if ($("#form1").valid()) {
+                  modificado = false;
+                  form1.submit();
+            } else {
+                  $("#modalGuardar").modal('toggle');
+                  msgShow("Corrija los errores e intente nuevamente.", "danger");
+                  return false;
+            }
+      }
 </script>
 @endsection
