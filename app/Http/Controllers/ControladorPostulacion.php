@@ -30,7 +30,7 @@ class ControladorPostulacion extends Controller
                $msg["ESTADO"] = MSG_ERROR;
                $msg["MSG"] = "Complete todos los datos";
 
-               $postulacion = new Categoria();
+               $postulacion = new Postulacion();
                $postulacion->obtenerPorId($entidad->idpostulacion);
                return view('sistema.postulacion-nuevo', compact('msg', 'postulacion', 'titulo')) . '?id=' . $entidad->idpostulacion;
 
