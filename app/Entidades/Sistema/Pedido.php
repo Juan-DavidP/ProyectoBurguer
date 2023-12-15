@@ -57,7 +57,7 @@ class Pedido extends Model
 
     public function eliminar()
     {
-        $sql = "DELETE FROM pedido WHERE idpedido =?";
+        $sql = "DELETE FROM pedidos WHERE idpedido =?";
         $affected = DB::delete($sql, [$this->idpedido]);
     }
 
