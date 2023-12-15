@@ -61,24 +61,43 @@ class Pedido extends Model
         $affected = DB::delete($sql, [$this->idpedido]);
     }
 
-    public function insertar()
+    // public function insertar()
+    // {
+    //     $sql = "INSERT INTO productos(
+    //         fecha,
+    //         total,
+    //         fk_idcliente,
+    //         fk_idsucursal,
+    //         fk_idestado
+    //         metodo_pago
+    //         ) VALUES (?, ?, ?, ?, ?, ?)";
+    //     $result = DB::insert($sql, [
+    //         $this->fecha,
+    //         $this->total,
+    //         $this->fk_idcliente,
+    //         $this->fk_idsucursal,
+    //         $this->fk_idestado,
+    //         $this->metodo_pago
+    //     ]);
+    //     return $this->idpedido = DB::getpdo()->lastInsertId();
+    // }
+    public function guardar()
     {
-        $sql = "INSERT INTO productos(
-            fecha,
-            total,
-            fk_idcliente,
-            fk_idsucursal,
-            fk_idestado
-            metodo_pago
-            ) VALUES (?, ?, ?, ?, ?, ?)";
-        $result = DB::insert($sql, [
-            $this->fecha,
-            $this->total,
-            $this->fk_idcliente,
-            $this->fk_idsucursal,
-            $this->fk_idestado,
-            $this->metodo_pago
+        $sql = "UPDATE productos SET
+        nombre = '?',
+        cantidad = ?,
+        precio = ?,
+        descripcion = '?',
+        imagen = '?',
+        fk_idcategoria = ?
+        WHERE idproducto = ?";
+        $affected = DB::update($sql, [
+            $this->nombre,
+            $this->cantidad,
+            $this->precio,
+            $this->descripcion,
+            $this->imagen,
+            $this->fk_idcategoria
         ]);
-        return $this->idpedido = DB::getpdo()->lastInsertId();
     }
 }

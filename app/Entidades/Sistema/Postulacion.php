@@ -31,37 +31,37 @@ class Producto extends Model
     public function obtenerTodos()
     {
         $sql = "SELECT 
-        , 
+        idpostulacion, 
         nombre, 
-        cantidad, 
-        precio, 
-        descripcion, 
-        imagen,
-        fk_idcategoria FROM productos";
+        apellido, 
+        telefono, 
+        direccion, 
+        correo,
+        curriculum FROM postulaciones";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }
 
-    public function obtenerPorId($idProducto)
+    public function obtenerPorId($idPostulacion)
     {
         $sql = "SELECT 
-        idproducto, 
+        idpostulacion, 
         nombre, 
-        cantidad, 
-        precio, 
-        descripcion, 
-        imagen,
-        fk_idcategoria FROM productos WHERE idproducto = $idProducto";
+        apellido, 
+        telefono, 
+        direccion, 
+        correo,
+        curriculum FROM postulaciones WHERE idpostulacion = $idPostulacion";
         $lstRetorno = DB::select($sql);
 
         if (count($lstRetorno) > 0) {
-            $this->idproducto = $lstRetorno[0]->idproducto;
+            $this->idpostulacion = $lstRetorno[0]->idpostulacion;
             $this->nombre = $lstRetorno[0]->nombre;
-            $this->cantidad = $lstRetorno[0]->cantidad;
-            $this->precio = $lstRetorno[0]->precio;
-            $this->descripcion = $lstRetorno[0]->descripcion;
-            $this->imagen = $lstRetorno[0]->imagen;
-            $this->fk_idcategoria = $lstRetorno[0]->fk_idcategoria;
+            $this->apellido = $lstRetorno[0]->apellido;
+            $this->telefono = $lstRetorno[0]->telefono;
+            $this->direccion = $lstRetorno[0]->direccion;
+            $this->correo = $lstRetorno[0]->correo;
+            $this->curriculum = $lstRetorno[0]->curriculum;
             return $this;
         }
         return null;
@@ -71,46 +71,46 @@ class Producto extends Model
     {
         $sql = "UPDATE productos SET
         nombre = '?',
-        cantidad = ?,
-        precio = ?,
-        descripcion = '?',
-        imagen = '?',
-        fk_idcategoria = ?
-        WHERE idproducto = ?";
+        apellido = '?',
+        telefono = '?',
+        direccion = '?',
+        correo = '?',
+        curriculum = '?'
+        WHERE idpostulacion = ?";
         $affected = DB::update($sql, [
             $this->nombre,
-            $this->cantidad,
-            $this->precio,
-            $this->descripcion,
-            $this->imagen,
-            $this->fk_idcategoria
+            $this->apellido,
+            $this->telefono,
+            $this->direccion,
+            $this->correo,
+            $this->curriculum
         ]);
     }
 
     public function eliminar()
     {
-        $sql = "DELETE FROM productos WHERE idproducto =?";
-        $affected = DB::delete($sql, [$this->idproducto]);
+        $sql = "DELETE FROM postulaciones WHERE idpostulacion =?";
+        $affected = DB::delete($sql, [$this->idpostulacion]);
     }
 
     public function insertar()
     {
-        $sql = "INSERT INTO productos(
+        $sql = "INSERT INTO postulaciones(
             nombre,
-            cantidad,
-            precio,
-            descripcion,
-            imagen,
-            fk_idcategoria
+            apellido,
+            telefono,
+            direccion,
+            correo,
+            curriculum
             ) VALUES (?, ?, ?, ?, ?, ?)";
         $result = DB::insert($sql, [
             $this->nombre,
-            $this->cantidad,
-            $this->precio,
-            $this->descripcion,
-            $this->imagen,
-            $this->fk_idcategoria
+            $this->apellido,
+            $this->telefono,
+            $this->direccion,
+            $this->correo,
+            $this->curriculum
         ]);
-        return $this->idproducto = DB::getpdo()->lastInsertId();
+        return $this->idpostulacion = DB::getpdo()->lastInsertId();
     }
 }
