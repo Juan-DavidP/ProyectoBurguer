@@ -141,3 +141,4 @@ Route::get('/admin/categoria/cargarGrilla', 'ControladorCategoria@cargarGrilla')
 /* CONTROLADOR PEDIDOS                          */
 /* --------------------------------------------- */
 Route::get('/admin/pedidos', 'ControladorPedido@index');
+Route::get('/admin/pedidos/cargarGrilla', 'ControladorPedido@cargarGrilla')->name('pedido.cargarGrilla');
