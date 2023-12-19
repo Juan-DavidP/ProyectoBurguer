@@ -31,6 +31,7 @@ $clientes= $cliente->obtenerTodos();
 <table id="grilla" class="display table table-bordered table-hover">
     <thead>
         <tr>
+            <th></th>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>DNI</th>
@@ -38,27 +39,17 @@ $clientes= $cliente->obtenerTodos();
             <th>Teléfono</th>
         </tr>
     </thead>
-    <tbody>
-        <?php foreach ($clientes as $cliente): ?>
-            <tr>
-                <td>
-                    <?php echo $cliente->nombre; ?>
-                </td>
-                <td>
-                    <?php echo $cliente->apellido; ?>
-                </td>
-                <td>
-                    <?php echo $cliente->dni; ?>
-                </td>
-                <td>
-                    <?php echo $cliente->correo; ?>
-                </td>
-                <td>
-                    <?php echo $cliente->telefono; ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
 </table>
-
+<script>
+	var dataTable = $('#grilla').DataTable({
+	    "processing": true,
+        "serverSide": true,
+	    "bFilter": true,
+	    "bInfo": true,
+	    "bSearchable": true,
+        "pageLength": 25,
+        "order": [[ 0, "asc" ]],
+	    "ajax": "{{ route('cliente.cargarGrilla') }}"
+	});
+</script>
 @endsection
