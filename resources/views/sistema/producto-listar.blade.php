@@ -35,30 +35,26 @@ $productos = $producto->obtenerTodos();
 <table id="grilla" class="display table table-bordered table-hover">
     <thead>
         <tr>
+            <th></th>
             <th>Nombre</th>
             <th>Cantidad</th>
             <th>Precio</th>
             <th>Imagen</th>
         </tr>
     </thead>
-    <tbody>
-        <?php foreach ($productos as $producto) : ?>
-            <tr>
-                <td>
-                    <?php echo $producto->nombre; ?>
-                </td>
-                <td>
-                    <?php echo $producto->cantidad; ?>
-                </td>
-                <td>
-                    $ <?php echo number_format($producto->precio, 2, ",", "."); ?>
-                </td>
-                <td>
-                    <img src="files/<?php echo $producto->imagen; ?>" class="img-thumbnail">
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
 </table>
+
+<script>
+	var dataTable = $('#grilla').DataTable({
+	    "processing": true,
+        "serverSide": true,
+	    "bFilter": true,
+	    "bInfo": true,
+	    "bSearchable": true,
+        "pageLength": 25,
+        "order": [[ 0, "asc" ]],
+	    "ajax": "{{ route('producto.cargarGrilla') }}"
+	});
+</script>
 
 @endsection
