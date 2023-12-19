@@ -33,7 +33,7 @@ class Categoria extends Model
       public function obtenerPorId($idcategoria)
       {
             $sql = "SELECT
-                  idcliente,
+                  idcategoria,
                   nombre
                 FROM categorias WHERE idcategoria = $idcategoria";
             $lstRetorno = DB::select($sql);
@@ -48,22 +48,12 @@ class Categoria extends Model
 
       public function guardar()
       {
-            $sql = "UPDATE clientes SET
-            nombre='?',
-            apellido='?',
-            correo='?',
-            telefono='?',
-            dni='?',
-            clave='?'
-            WHERE idcliente=?";
+            $sql = "UPDATE categorias SET
+            nombre='?'
+            WHERE idcategoria=?";
             $affected = DB::update($sql, [
                   $this->nombre,
-                  $this->apellido,
-                  $this->correo,
-                  $this->telefono,
-                  $this->dni,
-                  $this->clave,
-                  $this->idcliente
+                  $this->idcategoria
             ]);
       }
 
@@ -84,4 +74,30 @@ class Categoria extends Model
             ]);
             return $this->idcategoria = DB::getPdo()->lastInsertId();
       }
+
+      public function obtenerFiltrado()
+    {
+        $request = $_REQUEST;
+        $columns = array(
+            0 => 'A.idcategoria',
+            1 => 'A.nombre',
+        );
+        $sql = "SELECT DISTINCT
+                    A.idcategoria,
+                    A.nombre
+                FROM categorias A
+                WHERE 1=1
+                ";
+
+        //Realiza el filtrado
+        if (!empty($request['search']['value'])) {
+            $sql .= " AND ( A.nombre LIKE '%" . $request['search']['value'] . "%' )";
+        }
+        $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
+
+        $lstRetorno = DB::select($sql);
+
+        return $lstRetorno;
+
+    }
 }
