@@ -64,20 +64,18 @@
 				<input type="password" name="txtClave" id="txtClave" class="form-control" required>
 			</div>
 		</div>
-</div>
-</div>
-</form>
+	</form>
 </div>
 <script>
-   function guardar() {
-        if ($("#form1").valid()) {
-            modificado = false;
-            form1.submit();
-        } else {
-            $("#modalGuardar").modal('toggle');
-            msgShow("Corrija los errores e intente nuevamente.", "danger");
-            return false;
-        }
-    }
+	function guardar() {
+		if ($("#form1").valid()) {
+			modificado = false;
+			form1.submit();
+		} else {
+			$("#modalGuardar").modal('toggle');
+			msgShow("Corrija los errores e intente nuevamente.", "danger");
+			return false;
+		}
+	}
 </script>
 @endsection

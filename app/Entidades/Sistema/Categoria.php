@@ -10,9 +10,7 @@ class Categoria extends Model
       protected $table = 'categorias';
       public $timestamps = false;
 
-      protected $fillable = [
-            'idcategoria', 'nombre',
-      ];
+      protected $fillable = ['idcategoria', 'nombre',];
 
       protected $hidden = [];
 

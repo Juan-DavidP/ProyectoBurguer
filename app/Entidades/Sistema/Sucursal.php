@@ -22,9 +22,9 @@ class Sucursal extends Model
         $this->idsucursal = $request->input('id') != "0" ? $request->input('id') : $this->idsucursal;
         $this->telefono = $request->input('txtTelefono');
         $this->nombre = $request->input('txtNombre');
+        $this->direccion = $request->input('txtDireccion');
         $this->fk_idestadosucursal = $request->input('lstEstado');
-        $this->mapa = "";
-        $this->curriculum = "";
+        $this->mapa = $request->input('txtUbicacion');
     }
 
     public function obtenerTodos()
@@ -95,11 +95,10 @@ class Sucursal extends Model
             direccion,
             fk_idestadosucursal,
             mapa
-            ) VALUES (?, ?, ?, ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?)";
         $result = DB::insert($sql, [
-            $this->nombre,
-            $this->apellido,
             $this->telefono,
+            $this->nombre,
             $this->direccion,
             $this->fk_idestadosucursal,
             $this->mapa
