@@ -105,4 +105,41 @@ class Sucursal extends Model
         ]);
         return $this->idsucursal = DB::getpdo()->lastInsertId();
     }
+
+    public function obtenerFiltrado()
+    {
+        $request = $_REQUEST;
+        $columns = array(
+            0 => 'A.idsucursal',
+            1 => 'A.nombre',
+            2 => 'A.telefono',
+            3 => 'A.direccion',
+            4 => 'A.fk_idestadosucursal',
+            5 => 'A.mapa'
+        );
+        $sql = "SELECT DISTINCT
+                    A.idsucursal,
+                    A.nombre,
+                    A.telefono,
+                    A.direccion,
+                    A.fk_idestadosucursal,
+                    A.mapa
+                FROM sucursales A
+                WHERE 1=1
+                ";
+
+        //Realiza el filtrado
+        if (!empty($request['search']['value'])) {
+            $sql .= " AND ( A.nombre LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR A.telefono LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR A.direccion LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR A.fk_idestadosucursal LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR A.mapa LIKE '%" . $request['search']['value'] . "%' )";
+        }
+        $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
+
+        $lstRetorno = DB::select($sql);
+
+        return $lstRetorno;
+    }
 }

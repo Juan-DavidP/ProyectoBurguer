@@ -1,63 +1,97 @@
 <?php
 
-
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Entidades\Sistema\Sucursal;
+
 require app_path() . '/start/constants.php';
 
 class ControladorSucursal extends Controller
 {
-      public function nuevo()
-      {
-            $titulo = "Nueva sucursal";
-            return view('sistema.sucursal-nuevo', compact('titulo'));
-      }
+    public function nuevo()
+    {
+        $titulo = "Nueva sucursal";
+        return view('sistema.sucursal-nuevo', compact('titulo'));
+    }
 
-      public function index()
-      {
-            $titulo = "Listado de sucursales";
-            return view('sistema.sucursal-listar', compact('titulo'));
-      }
+    public function index()
+    {
+        $titulo = "Listado de sucursales";
+        return view('sistema.sucursal-listar', compact('titulo'));
+    }
 
-      public function guardar(Request $request){
-            try {
-               //Define la entidad servicio
-               $titulo = "Modificar cliente";
-               $entidad = new Sucursal();
-               $entidad->cargarDesdeRequest($request);
-   
-               //validaciones
-               if ($entidad->nombre == "") {
-                   $msg["ESTADO"] = MSG_ERROR;
-                   $msg["MSG"] = "Complete todos los datos";
-   
-                   $sucursal = new Sucursal();
-                   $sucursal->obtenerPorId($entidad->idsucursal);
-                   return view('sistema.sucursal-nuevo', compact('msg', 'sucursal', 'titulo')) . '?id=' . $entidad->idsucursal;
-   
-               } else {
-                   if ($_POST["id"] > 0) {
-                       //Es actualizacion
-                       $entidad->guardar();
-   
-                       $msg["ESTADO"] = MSG_SUCCESS;
-                       $msg["MSG"] = OKINSERT;
-                   } else {
-                       //Es nuevo
-                       $entidad->insertar();
-   
-                       $msg["ESTADO"] = MSG_SUCCESS;
-                       $msg["MSG"] = OKINSERT;
-                   }
-                
-                   $_POST["id"] = $entidad->idsucursal;
-                   $titulo = "Listado de sucursales";
-                   return view('sistema.sucursal-listar', compact('titulo', 'msg'));
-               }
-           } catch (Exception $e) {
-               $msg["ESTADO"] = MSG_ERROR;
-               $msg["MSG"] = ERRORINSERT;
-           }
-       }
+    public function guardar(Request $request)
+    {
+        try {
+            //Define la entidad servicio
+            $titulo = "Modificar Sucursal";
+            $entidad = new Sucursal();
+            $entidad->cargarDesdeRequest($request);
+
+            //validaciones
+            if ($entidad->nombre == "") {
+                $msg["ESTADO"] = MSG_ERROR;
+                $msg["MSG"] = "Complete todos los datos";
+
+                $sucursal = new Sucursal();
+                $sucursal->obtenerPorId($entidad->idsucursal);
+                return view('sistema.sucursal-nuevo', compact('msg', 'sucursal', 'titulo')) . '?id=' . $entidad->idsucursal;
+            } else {
+                if ($_POST["id"] > 0) {
+                    //Es actualizacion
+                    $entidad->guardar();
+
+                    $msg["ESTADO"] = MSG_SUCCESS;
+                    $msg["MSG"] = OKINSERT;
+                } else {
+                    //Es nuevo
+                    $entidad->insertar();
+
+                    $msg["ESTADO"] = MSG_SUCCESS;
+                    $msg["MSG"] = OKINSERT;
+                }
+
+                $_POST["id"] = $entidad->idsucursal;
+                $titulo = "Listado de sucursales";
+                return view('sistema.sucursal-listar', compact('titulo', 'msg'));
+            }
+        } catch (Exception $e) {
+            $msg["ESTADO"] = MSG_ERROR;
+            $msg["MSG"] = ERRORINSERT;
+        }
+    }
+
+    public function cargarGrilla()
+    {
+        $request = $_REQUEST;
+
+        $entidad = new Sucursal();
+        $aSucursales = $entidad->obtenerFiltrado();
+
+        $data = array();
+        $cont = 0;
+        $inicio = $request['start'];
+        $registros_por_pagina = $request['length'];
+
+        for ($i = $inicio; $i < count($aSucursales) && $cont < $registros_por_pagina; $i++) {
+            $row = array();
+            $row[] = '<a href="/admin/sucursal/' . $aSucursales[$i]->idsucursal . '" class="btn btn-secondary">Editar</a>';
+            $row[] = $aSucursales[$i]->nombre;
+            $row[] = $aSucursales[$i]->telefono;
+            $row[] = $aSucursales[$i]->direccion;
+            $row[] = $aSucursales[$i]->fk_idestadosucursal;
+            $row[] = $aSucursales[$i]->mapa;
+            $cont++;
+            $data[] = $row;
+        }
+
+        $json_data = array(
+            "draw" => intval($request['draw']),
+            "recordsTotal" => count($aSucursales), //cantidad total de registros sin paginar
+            "recordsFiltered" => count($aSucursales), //cantidad total de registros en la paginacion
+            "data" => $data
+        );
+        return json_encode($json_data);
+    }
 }

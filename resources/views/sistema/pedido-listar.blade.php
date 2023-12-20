@@ -39,30 +39,7 @@ $pedidos= $pedido->obtenerTodos();
             <th>Metodo de pago</th>
         </tr>
     </thead>
-    <tbody>
-        <?php foreach ($pedidos as $pedido): ?>
-            <tr>
-                <td>
-                    <?php echo $pedido->fecha; ?>
-                </td>
-                <td>
-                    <?php echo $pedido->total; ?>
-                </td>
-                <td>
-                    <?php echo $pedido->cliente; ?>
-                </td>
-                <td>
-                    <?php echo $pedido->sucursal; ?>
-                </td>
-                <td>
-                    <?php echo $pedido->estado; ?>
-                </td>
-                <td>
-                    <?php echo $pedido->metodo_pago; ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
+    <!-- implementar la lógica para la correcta visualizacion de tablas pedido(controlador, entidad, ruta) -->
 </table>
 
 @endsection
