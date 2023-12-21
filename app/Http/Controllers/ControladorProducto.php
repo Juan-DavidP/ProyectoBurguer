@@ -25,20 +25,34 @@ class ControladorProducto extends Controller
     {
         try {
             //Define la entidad servicio
-            $titulo = "Modificar cliente";
+            $titulo = "Modificar producto";
             $entidad = new Producto();
             $entidad->cargarDesdeRequest($request);
+
+            if (isset($_FILES["archivo"]) && $_FILES["archivo"]["error"] === UPLOAD_ERR_OK) { //Se adjunta imagen
+                $extension = pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION);
+                $nombre = date("Ymdhmsi") . ".$extension";
+                $archivo = $_FILES["archivo"]["tmp_name"];
+                move_uploaded_file($archivo, env('APP_PATH') . "/public/files/$nombre"); //guardaelarchivo
+                $entidad->imagen = $nombre;
+            }
 
             //validaciones
             if ($entidad->nombre == "") {
                 $msg["ESTADO"] = MSG_ERROR;
                 $msg["MSG"] = "Complete todos los datos";
-
-                $producto = new Producto();
-                $producto->obtenerPorId($entidad->idproducto);
-                return view('sistema.producto-nuevo', compact('msg', 'producto', 'titulo')) . '?id=' . $entidad->idproducto;
             } else {
                 if ($_POST["id"] > 0) {
+                    $productAnt = new Producto();
+                    $productAnt->obtenerPorId($entidad->idproducto);
+
+                    if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
+                        //Eliminar imagen anterior
+                        @unlink(env('APP_PATH') . "/public/files/$productAnt->imagen");
+                    } else {
+                        $entidad->imagen = $productAnt->imagen;
+                    }
+
                     //Es actualizacion
                     $entidad->guardar();
 
@@ -51,9 +65,7 @@ class ControladorProducto extends Controller
                     $msg["ESTADO"] = MSG_SUCCESS;
                     $msg["MSG"] = OKINSERT;
                 }
-
                 $_POST["id"] = $entidad->idproducto;
-                $titulo = "Listado de productos";
                 return view('sistema.producto-listar', compact('titulo', 'msg'));
             }
         } catch (Exception $e) {
@@ -80,8 +92,8 @@ class ControladorProducto extends Controller
             $row[] = '<a href="/admin/producto/' . $aProductos[$i]->idproducto . '" class="btn btn-secondary">Editar</a>';
             $row[] = $aProductos[$i]->nombre;
             $row[] = $aProductos[$i]->cantidad;
-            $row[] ='$' . number_format($aProductos[$i]->precio, 2, ",", ".");
-            $row[] = $aProductos[$i]->imagen;
+            $row[] = '$' . number_format($aProductos[$i]->precio, 2, ",", ".");
+            $row[] = '<img src="/public/files/' . $aProductos[$i]->imagen . '" alt="Imagen del producto" class="img-thumbnail">';
             $cont++;
             $data[] = $row;
         }
