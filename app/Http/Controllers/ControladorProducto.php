@@ -29,10 +29,10 @@ class ControladorProducto extends Controller
             $entidad = new Producto();
             $entidad->cargarDesdeRequest($request);
 
-            if (isset($_FILES["archivo"]) && $_FILES["archivo"]["error"] === UPLOAD_ERR_OK) { //Se adjunta imagen
-                $extension = pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION);
+            if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] === UPLOAD_ERR_OK) { //Se adjunta imagen
+                $extension = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
                 $nombre = date("Ymdhmsi") . ".$extension";
-                $archivo = $_FILES["archivo"]["tmp_name"];
+                $archivo = $_FILES["imagen"]["tmp_name"];
                 move_uploaded_file($archivo, env('APP_PATH') . "/public/files/$nombre"); //guardaelarchivo
                 $entidad->imagen = $nombre;
             }
@@ -46,7 +46,7 @@ class ControladorProducto extends Controller
                     $productAnt = new Producto();
                     $productAnt->obtenerPorId($entidad->idproducto);
 
-                    if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
+                    if ($_FILES["imagen"]["error"] === UPLOAD_ERR_OK) {
                         //Eliminar imagen anterior
                         @unlink(env('APP_PATH') . "/public/files/$productAnt->imagen");
                     } else {
