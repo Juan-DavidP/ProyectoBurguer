@@ -39,7 +39,18 @@ $pedidos= $pedido->obtenerTodos();
             <th>Metodo de pago</th>
         </tr>
     </thead>
-    <!-- implementar la lógica para la correcta visualizacion de tablas pedido(controlador, entidad, ruta) -->
 </table>
+<script>
+      var dataTable = $('#grilla').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "bFilter": true,
+            "bInfo": true,
+            "bSearchable": true,
+            "pageLength": 25,
+            "order": [[0, "asc"]],
+            "ajax": "{{ route('pedido.cargarGrilla') }}"
+      });
+</script>
 
 @endsection
