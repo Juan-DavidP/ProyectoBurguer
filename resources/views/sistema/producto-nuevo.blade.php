@@ -85,7 +85,7 @@
                   </div>
                   <div class="form-group col-lg-12">
                         <label>Imagen: *</label>
-                        <input type="file" id="archivo" name="archivo" class="form-control-file" accept=".jpg, .jpeg, .png" required>
+                        <input type="file" id="imagen" name="imagen" class="form-control-file" accept=".jpg, .jpeg, .png" required>
                         <small class="d-block">Archivos admitidos: .jpg, .jpeg, .png</small>
                   </div>
             </div>
