@@ -65,19 +65,20 @@ class Sucursal extends Model
 
     public function guardar()
     {
-        $sql = "UPDATE productos SET
-        telefono = '?',
-        nombre = '?',
-        direccion = '?',
-        fk_idestadosucursal = '?',
-        mapa = '?'
-        WHERE idpostulacion = ?";
+        $sql = "UPDATE sucursales SET
+        telefono = ?,
+        nombre = ?,
+        direccion = ?,
+        fk_idestadosucursal = ?,
+        mapa = ?
+        WHERE idsucursal = ?";
         $affected = DB::update($sql, [
             $this->telefono,
             $this->nombre,
             $this->direccion,
             $this->fk_idestadosucursal,
-            $this->mapa
+            $this->mapa,
+            $this->idsucursal
         ]);
     }
 
