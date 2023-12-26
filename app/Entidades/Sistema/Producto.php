@@ -88,7 +88,8 @@ class Producto extends Model
             $this->precio,
             $this->descripcion,
             $this->imagen,
-            $this->fk_idcategoria
+            $this->fk_idcategoria,
+            $this->idproducto
         ]);
     }
 

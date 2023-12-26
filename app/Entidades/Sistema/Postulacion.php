@@ -83,7 +83,8 @@ class Postulacion extends Model
             $this->telefono,
             $this->direccion,
             $this->correo,
-            $this->curriculum
+            $this->curriculum,
+            $this->idpostulacion
         ]);
     }
 

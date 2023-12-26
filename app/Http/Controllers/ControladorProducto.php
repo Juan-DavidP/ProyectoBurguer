@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Entidades\Sistema\Producto;
+use App\Entidades\Sistema\Categoria;
 
 require app_path() . '/start/constants.php';
 
@@ -13,7 +14,10 @@ class ControladorProducto extends Controller
     {
         $titulo = "Nuevo producto";
         $producto = new Producto();
-        return view('sistema.producto-nuevo', compact('titulo', 'producto'));
+        $categoria = new Categoria();
+        $aCategorias = $categoria->obtenerTodos();
+
+        return view('sistema.producto-nuevo', compact('titulo', 'producto', 'aCategorias'));
     }
 
     public function index()
@@ -45,7 +49,10 @@ class ControladorProducto extends Controller
 
                 $producto = new Producto();
                 $producto->obtenerPorId($entidad->idproducto);
-                return view('sistema.producto-nuevo', compact('msg', 'producto', 'titulo')) . '?id=' . $entidad->idproducto;
+                $categoria = new Categoria();
+                $aCategorias = $categoria->obtenerTodos();
+
+                return view('sistema.producto-nuevo', compact('msg', 'producto', 'titulo', 'aCategorias')) . '?id=' . $entidad->idproducto;
             } else {
                 if ($_POST["id"] > 0) {
                     $productAnt = new Producto();
@@ -98,7 +105,7 @@ class ControladorProducto extends Controller
             $row[] = $aProductos[$i]->nombre;
             $row[] = $aProductos[$i]->cantidad;
             $row[] = '$' . number_format($aProductos[$i]->precio, 2, ",", ".");
-            $row[] = '<img src="/public/files/' . $aProductos[$i]->imagen . '" alt="Imagen del producto" class="img-thumbnail">';
+            $row[] = '<img src="/files/' . $aProductos[$i]->imagen . '" alt="Imagen del producto" class="img-thumbnail">';
             $cont++;
             $data[] = $row;
         }
@@ -116,7 +123,12 @@ class ControladorProducto extends Controller
         $titulo = "Edición de producto";
         $producto = new Producto();
         $producto->obtenerPorId($id);
-        return view('sistema.producto-nuevo', compact('titulo', 'producto'));
+
+
+        $categoria = new Categoria();
+        $aCategorias = $categoria->obtenerTodos();
+
+        return view('sistema.producto-nuevo', compact('titulo', 'producto' ,'aCategorias'));
     }
     
 }

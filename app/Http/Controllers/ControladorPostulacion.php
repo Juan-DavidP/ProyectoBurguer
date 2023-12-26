@@ -98,7 +98,7 @@ class ControladorPostulacion extends Controller
     }
 
     public function editar($id){
-        $titulo = "Edición de cliente";
+        $titulo = "Edición de postulación";
         $postulacion = new Postulacion();
         $postulacion->obtenerPorId($id);
         return view('sistema.postulacion-nuevo', compact('titulo', 'postulacion'));

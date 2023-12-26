@@ -32,20 +32,9 @@
 <div class="panel-body">
       <div id="msg"></div>
       <?php
-
-      use App\Entidades\Sistema\Categoria;
-      use App\Entidades\Sistema\Producto;
-
       if (isset($msg)) {
             echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
       }
-
-      $categoria = new Categoria();
-      $aCategorias = $categoria->obtenerTodos();
-
-      $producto = new Producto();
-      $productos = $producto->obtenerTodos();
-
       ?>
       <form id="form1" method="POST" enctype="multipart/form-data">
             <div class="row">
@@ -74,7 +63,7 @@
                   </div>
                   <div class="form-group col-lg-12">
                         <label>Descripción: *</label>
-                        <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" required>
+                        <textarea id="txtDescripcion" name="txtDescripcion" class="form-control" required">{{ $producto->descripcion }}</textarea>
                         <script>
                               ClassicEditor
                                     .create(document.querySelector("#txtDescripcion"))
