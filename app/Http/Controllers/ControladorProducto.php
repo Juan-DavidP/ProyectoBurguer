@@ -42,6 +42,10 @@ class ControladorProducto extends Controller
             if ($entidad->nombre == "") {
                 $msg["ESTADO"] = MSG_ERROR;
                 $msg["MSG"] = "Complete todos los datos";
+
+                $producto = new Producto();
+                $producto->obtenerPorId($entidad->idproducto);
+                return view('sistema.producto-nuevo', compact('msg', 'producto', 'titulo')) . '?id=' . $entidad->idproducto;
             } else {
                 if ($_POST["id"] > 0) {
                     $productAnt = new Producto();
