@@ -13,7 +13,7 @@ class ControladorSucursal extends Controller
     public function nuevo()
     {
         $titulo = "Nueva sucursal";
-        return view('sistema.sucursal-nuevo', compact('titulo'));
+        return view('sistema.sucursal-nuevo', compact('titulo','sucursal'));
     }
 
     public function index()
@@ -103,5 +103,12 @@ class ControladorSucursal extends Controller
             "data" => $data
         );
         return json_encode($json_data);
+    }
+
+    public function editar($id){
+        $titulo = "Edicción de sucursal";
+        $sucursal = new Sucursal();
+        $sucursal->obtenerPorId($id);
+        return view('sistema.sucursal-nuevo', compact('titulo','sucursal'));
     }
 }
