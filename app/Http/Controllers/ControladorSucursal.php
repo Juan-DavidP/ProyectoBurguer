@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Entidades\Sistema\Sucursal;
+use App\Entidades\Sistema\EstadoSucursal;
 
 require app_path() . '/start/constants.php';
 
@@ -69,6 +70,9 @@ class ControladorSucursal extends Controller
         $entidad = new Sucursal();
         $aSucursales = $entidad->obtenerFiltrado();
 
+        $estadoSucursales = new EstadoSucursal();
+        $aEstados = $estadoSucursales->obtenerTodos();
+
         $data = array();
         $cont = 0;
         $inicio = $request['start'];
@@ -80,7 +84,13 @@ class ControladorSucursal extends Controller
             $row[] = $aSucursales[$i]->nombre;
             $row[] = $aSucursales[$i]->telefono;
             $row[] = $aSucursales[$i]->direccion;
-            $row[] = $aSucursales[$i]->fk_idestadosucursal;
+            // $row[] = $aSucursales[$i]->fk_idestadosucursal;
+            foreach ($aEstados as $estado) {
+                if ($aSucursales[$i]->fk_idestadosucursal == $estado->idestadosucursal) {
+                    $row[]= $estado->nombre;
+                }
+            }
+            
             $row[] = $aSucursales[$i]->mapa;
             $cont++;
             $data[] = $row;

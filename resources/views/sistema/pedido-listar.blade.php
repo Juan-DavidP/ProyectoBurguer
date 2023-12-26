@@ -31,6 +31,7 @@ $pedidos= $pedido->obtenerTodos();
 <table id="grilla" class="display table table-bordered table-hover">
     <thead>
         <tr>
+            <th></th>
             <th>Fecha</th>
             <th>Total</th>
             <th>CLiente</th>

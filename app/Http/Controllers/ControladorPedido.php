@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Entidades\Sistema\Cliente;
 use Illuminate\Http\Request;
 use App\Entidades\Sistema\Pedido;
 use App\Entidades\Sistema\Sucursal;
@@ -10,19 +12,28 @@ require app_path() . '/start/constants.php';
 
 class ControladorPedido extends Controller
 {
-      
-      public function index()
-      {
-            $titulo = "Listado de pedidos";
-            return view('sistema.pedido-listar', compact('titulo'));
-      }
 
-      public function cargarGrilla()
+    public function index()
+    {
+        $titulo = "Listado de pedidos";
+        return view('sistema.pedido-listar', compact('titulo'));
+    }
+
+    public function cargarGrilla()
     {
         $request = $_REQUEST;
 
         $entidad = new Pedido();
         $aPedidos = $entidad->obtenerFiltrado();
+
+        $estado = new Estado();
+        $aEstados = $estado->obtenerTodos();
+
+        $cliente = new Cliente();
+        $aClientes = $cliente->obtenerTodos();
+
+        $sucursal = new Sucursal();
+        $aSucursales = $sucursal->obtenerTodos();
 
         $data = array();
         $cont = 0;
@@ -33,11 +44,26 @@ class ControladorPedido extends Controller
             $row = array();
             $row[] = '<a href="/admin/pedidos/' . $aPedidos[$i]->idpedido . '" class="btn btn-secondary">Editar</a>';
             $row[] = $aPedidos[$i]->fecha;
-            $row[] = $aPedidos[$i]->fk_idcliente;
+            $row[] = '$' . number_format($aPedidos[$i]->total, 2, ",", ".");
+            // $row[] = $aPedidos[$i]->fk_idcliente;
+            foreach ($aClientes as $cliente) {
+                if ($aPedidos[$i]->fk_idcliente == $cliente->idcliente) {
+                    $row[] = $cliente->nombre . " " . $cliente->apellido;
+                }
+            }
+            // $row[] = $aPedidos[$i]->fk_idsucursal;
+            foreach ($aSucursales as $sucursal) {
+                if ($aPedidos[$i]->fk_idsucursal == $sucursal->idsucursal) {
+                    $row[]= $sucursal->nombre;
+                }
+            }
+            // $row[] = $aPedidos[$i]->fk_idestado;
+            foreach ($aEstados as $estado) {
+                if ($aPedidos[$i]->fk_idestado == $estado->idestado) {
+                    $row[] = $estado->nombre;
+                }
+            }
             $row[] = $aPedidos[$i]->metodo_pago;
-            $row[] = $aPedidos[$i]->fk_idsucursal;
-            $row[] = $aPedidos[$i]->fk_idestado;
-            $row[] = $aPedidos[$i]->total;
             $cont++;
             $data[] = $row;
         }
@@ -50,6 +76,4 @@ class ControladorPedido extends Controller
         );
         return json_encode($json_data);
     }
-
-      
 }
