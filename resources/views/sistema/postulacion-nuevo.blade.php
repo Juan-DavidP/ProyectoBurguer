@@ -2,8 +2,8 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-	globalId = '';
-	<?php $globalId = ""; ?>
+    globalId = '<?php echo isset($postulacion->idpostulacion) && $postulacion->idpostulacion > 0 ? $postulacion->idpostulacion : 0; ?>';
+    <?php $globalId = isset($postulacion->idpostulacion) ? $postulacion->idpostulacion : "0";?>
 </script>
 @endsection
 @section('breadcrumb')
@@ -13,7 +13,7 @@
 	<li class="breadcrumb-item active">Modificar</li>
 </ol>
 <ol class="toolbar">
-	<li class="btn-item"><a title="Nuevo" href="/admin/sistema/postulacion/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
+	<li class="btn-item"><a title="Nuevo" href="/admin/postulacion/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
 	<li class="btn-item"><a title="Guardar" href="#" class="fa fa-floppy-o" aria-hidden="true" onclick="javascript: $('#modalGuardar').modal('toggle');"><span>Guardar</span></a>
 	</li>
 	@if($globalId > 0)
@@ -43,27 +43,27 @@
 			<input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
 			<div class="form-group col-lg-6">
 				<label>Nombre: *</label>
-				<input type="text" id="txtNombre" name="txtNombre" class="form-control" required>
+				<input type="text" id="txtNombre" name="txtNombre" class="form-control" required value="{{ $postulacion->nombre }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Apellido: *</label>
-				<input type="text" name="txtApellido" id="txtApellido" class="form-control" required>
+				<input type="text" name="txtApellido" id="txtApellido" class="form-control" required value="{{ $postulacion->apellido }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Telefono: *</label>
-				<input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required>
+				<input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required value="{{ $postulacion->telefono }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Dirección : *</label>
-				<input type="tel" name="txtDireccion" id="txtDireccion" class="form-control" required>
+				<input type="tel" name="txtDireccion" id="txtDireccion" class="form-control" required value="{{ $postulacion->direccion }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Correo: *</label>
-				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required>
+				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required value="{{ $postulacion->correo }}">
 			</div>
 			<div class="form-group col-lg-12">
 				<label>Curriculum: *</label>
-				<input type="file" id="cv" name="cv" class="form-control-file" accept=".pdf, .doc, .docx, .txt" required>
+				<input type="file" id="cv" name="cv" class="form-control-file" accept=".pdf, .doc, .docx, .txt" <?php echo $postulacion->idpostulacion > 0? "":"required";?>>
 				<small class="d-block">Archivos admitidos: PDF, DOC, DOCX, TXT</small>
 			</div>
 		</div>
