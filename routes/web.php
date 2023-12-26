@@ -106,7 +106,7 @@ Route::get('/admin/cliente/cargarGrilla', 'ControladorCliente@cargarGrilla')->na
 Route::get('/admin/cliente/{id}', 'ControladorCliente@editar');
 
 /* --------------------------------------------- */
-/* CONTROLADOR PROODUCTOS                          */
+/* CONTROLADOR PRODUCTOS                          */
 /* --------------------------------------------- */
 Route::get('/admin/productos', 'ControladorProducto@index');
 Route::get('/admin/producto/nuevo', 'ControladorProducto@nuevo');
@@ -128,6 +128,7 @@ Route::get('/admin/sucursales', 'ControladorSucursal@index');
 Route::get('/admin/sucursal/nuevo', 'ControladorSucursal@nuevo');
 Route::post('/admin/sucursal/nuevo', 'ControladorSucursal@guardar');
 Route::get('/admin/sucursal/cargarGrilla', 'ControladorSucursal@cargarGrilla')->name('sucursal.cargarGrilla');
+Route::get('/admin/sucursal/{id}', 'ControladorSucursal@editar');
 
 /* --------------------------------------------- */
 /* CONTROLADOR CATEGORIAS                          */

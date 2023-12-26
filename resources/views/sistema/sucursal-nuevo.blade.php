@@ -53,15 +53,15 @@
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-lg-6">
                         <label> Nombre: *</label>
-                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" required>
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" required value="{{ $sucursal->nombre }}">
                   </div>
                   <div class="form-group col-lg-6">
                         <label> Teléfono: *</label>
-                        <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required>
+                        <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required value="{{$sucursal->telefono}}">
                   </div>
                   <div class="form-group col-lg-6">
                         <label>dirección: *</label>
-                        <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" required>
+                        <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" required value="{{$sucursal->direccion}}">
                   </div>
                   <div class="form-group col-lg-6">
                         <label>Estado: *</label>
@@ -74,7 +74,7 @@
                   </div>
                   <div class="form-group col-lg-6">
                         <label>Ubicación: *</label>
-                        <input type="text" id="txtUbicacion" name="txtUbicacion" class="form-control" required>
+                        <input type="text" id="txtUbicacion" name="txtUbicacion" class="form-control" required value="{{$sucursal->mapa}}">
                   </div>
             </div>
       </form>
