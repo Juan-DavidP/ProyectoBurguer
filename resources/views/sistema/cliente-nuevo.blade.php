@@ -13,7 +13,7 @@
 	<li class="breadcrumb-item active">Modificar</li>
 </ol>
 <ol class="toolbar">
-	<li class="btn-item"><a title="Nuevo" href="/admin/sistema/cliente/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
+	<li class="btn-item"><a title="Nuevo" href="/admin/cliente/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
 	<li class="btn-item"><a title="Guardar" href="#" class="fa fa-floppy-o" aria-hidden="true" onclick="javascript: $('#modalGuardar').modal('toggle');"><span>Guardar</span></a>
 	</li>
 	@if($globalId > 0)
@@ -61,7 +61,7 @@
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Clave: *</label>
-				<input type="password" name="txtClave" id="txtClave" class="form-control">
+				<input type="password" name="txtClave" id="txtClave" class="form-control" <?php echo $cliente->idcliente > 0? "":"required";?>>
 			</div>
 		</div>
 	</form>
