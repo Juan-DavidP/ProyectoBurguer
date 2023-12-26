@@ -61,7 +61,7 @@
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Clave: *</label>
-				<input type="password" name="txtClave" id="txtClave" class="form-control" required>
+				<input type="password" name="txtClave" id="txtClave" class="form-control">
 			</div>
 		</div>
 	</form>
