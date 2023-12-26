@@ -13,7 +13,12 @@ class ControladorSucursal extends Controller
     public function nuevo()
     {
         $titulo = "Nueva sucursal";
-        return view('sistema.sucursal-nuevo', compact('titulo','sucursal'));
+        $sucursal = new Sucursal();
+
+        $estado = new EstadoSucursal();
+        $aEstados = $estado->obtenerTodos();
+
+        return view('sistema.sucursal-nuevo', compact('titulo','sucursal', 'aEstados'));
     }
 
     public function index()
@@ -37,7 +42,10 @@ class ControladorSucursal extends Controller
 
                 $sucursal = new Sucursal();
                 $sucursal->obtenerPorId($entidad->idsucursal);
-                return view('sistema.sucursal-nuevo', compact('msg', 'sucursal', 'titulo')) . '?id=' . $entidad->idsucursal;
+                $estado = new EstadoSucursal();
+                $aEstados = $estado->obtenerTodos();
+
+                return view('sistema.sucursal-nuevo', compact('msg', 'sucursal', 'titulo', 'aEstados')) . '?id=' . $entidad->idsucursal;
             } else {
                 if ($_POST["id"] > 0) {
                     //Es actualizacion
@@ -106,9 +114,14 @@ class ControladorSucursal extends Controller
     }
 
     public function editar($id){
-        $titulo = "Edicción de sucursal";
+        $titulo = "Edición de sucursal";
         $sucursal = new Sucursal();
         $sucursal->obtenerPorId($id);
-        return view('sistema.sucursal-nuevo', compact('titulo','sucursal'));
+
+
+        $estado = new EstadoSucursal();
+        $aEstados = $estado->obtenerTodos();
+
+        return view('sistema.sucursal-nuevo', compact('titulo','sucursal', 'aEstados'));
     }
 }
