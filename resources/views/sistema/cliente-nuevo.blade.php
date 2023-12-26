@@ -2,8 +2,8 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-	globalId = '';
-	<?php $globalId = ""; ?>
+    globalId = '<?php echo isset($cliente->idcliente) && $cliente->idcliente > 0 ? $cliente->idcliente : 0; ?>';
+    <?php $globalId = isset($cliente->idcliente) ? $cliente->idcliente : "0";?>
 </script>
 @endsection
 @section('breadcrumb')
@@ -41,23 +41,23 @@
 			<input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
 			<div class="form-group col-lg-6">
 				<label>Nombre: *</label>
-				<input type="text" id="txtNombre" name="txtNombre" class="form-control" required>
+				<input type="text" id="txtNombre" name="txtNombre" class="form-control" required value="{{ $cliente->nombre }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Apellido: *</label>
-				<input type="text" name="txtApellido" id="txtApellido" class="form-control" required>
+				<input type="text" name="txtApellido" id="txtApellido" class="form-control" required value="{{ $cliente->apellido }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>DNI: *</label>
-				<input type="text" id="txtDNI" name="txtDNI" class="form-control" required>
+				<input type="text" id="txtDNI" name="txtDNI" class="form-control" required value="{{ $cliente->dni }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Teléfono: *</label>
-				<input type="tel" name="txtTelefono" id="txtTelefono" class="form-control" required>
+				<input type="tel" name="txtTelefono" id="txtTelefono" class="form-control" required value="{{ $cliente->telefono }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Correo: *</label>
-				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required>
+				<input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required value="{{ $cliente->correo }}">
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Clave: *</label>
