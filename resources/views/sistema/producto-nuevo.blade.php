@@ -2,8 +2,8 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-    globalId = '<?php echo isset($producto->idproducto) && $producto->idproducto > 0 ? $producto->idproducto : 0; ?>';
-    <?php $globalId = isset($producto->idproducto) ? $producto->idproducto : "0";?>
+      globalId = '<?php echo isset($producto->idproducto) && $producto->idproducto > 0 ? $producto->idproducto : 0; ?>';
+      <?php $globalId = isset($producto->idproducto) ? $producto->idproducto : "0"; ?>
 </script>
 <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
 @endsection
@@ -74,9 +74,11 @@
                   </div>
                   <div class="form-group col-lg-12">
                         <label>Imagen: *</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control-file" accept=".jpg, .jpeg, .png" required>
+                        <input type="file" id="imagen" name="imagen" class="form-control-file" accept=".jpg, .jpeg, .png" <?php echo $producto->idproducto > 0 ? "" : "required"; ?>>
                         <small class="d-block">Archivos admitidos: .jpg, .jpeg, .png</small>
                   </div>
+
+
             </div>
       </form>
 </div>
