@@ -3,7 +3,7 @@
 @section('scripts')
 <script>
     globalId = '<?php echo isset($categoria->idcategoria) && $categoria->idcategoria > 0 ? $categoria->idcategoria : 0; ?>';
-    <?php $globalId = isset($categoria->idcliidcategoriaente) ? $categoria->idcategoria : "0";?>
+    <?php $globalId = isset($categoria->idcategoria) ? $categoria->idcategoria : "0";?>
 </script>
 
 @endsection
