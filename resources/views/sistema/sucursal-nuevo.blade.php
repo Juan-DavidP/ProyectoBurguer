@@ -2,8 +2,8 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-      globalId = '';
-      <?php $globalId = ""; ?>
+      globalId = '<?php echo isset($sucursal->idsucursal) && $sucursal->idsucursal > 0 ? $sucursal->idsucursal : 0; ?>';
+      <?php $globalId = isset($sucursal->idsucursal) ? $sucursal->idsucursal : "0"; ?>
 </script>
 @endsection
 @section('breadcrumb')
@@ -43,8 +43,8 @@
       $estado = new EstadoSucursal();
       $aEstados = $estado->obtenerTodos();
 
-      $sucursales = new Sucursal();
-      $aSucursales = $sucursales->obtenerTodos();
+      $sucursal = new Sucursal();
+      $aSucursales = $sucursal->obtenerTodos();
 
       ?>
       <form id="form1" method="POST">

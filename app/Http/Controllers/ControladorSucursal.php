@@ -13,7 +13,7 @@ class ControladorSucursal extends Controller
     public function nuevo()
     {
         $titulo = "Nueva sucursal";
-        return view('sistema.sucursal-nuevo', compact('titulo'));
+        return view('sistema.sucursal-nuevo', compact('titulo','sucursal'));
     }
 
     public function index()
