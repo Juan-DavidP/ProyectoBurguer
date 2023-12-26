@@ -16,7 +16,7 @@ class EstadoSucursal extends Model
 
       public function obtenerTodos()
       {
-            $sql = "SELECT * FROM estados_sucursales";
+            $sql = "SELECT idestadosucursal, nombre FROM estados_sucursales";
             $lstRetorno = DB::select($sql);
             return $lstRetorno;
       }

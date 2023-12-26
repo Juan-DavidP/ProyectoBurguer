@@ -13,7 +13,7 @@
       <li class="breadcrumb-item active">Modificar</li>
 </ol>
 <ol class="toolbar">
-      <li class="btn-item"><a title="Nuevo" href="/admin/sistema/sucursal/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
+      <li class="btn-item"><a title="Nuevo" href="/admin/sucursal/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
       <li class="btn-item"><a title="Guardar" href="#" class="fa fa-floppy-o" aria-hidden="true" onclick="javascript: $('#modalGuardar').modal('toggle');"><span>Guardar</span></a>
       </li>
       @if($globalId > 0)
@@ -31,21 +31,9 @@
 <div class="panel-body">
       <div id="msg"></div>
       <?php
-
-      use App\Entidades\Sistema\Sucursal;
-      use App\Entidades\Sistema\EstadoSucursal;
-
-
       if (isset($msg)) {
             echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
       }
-
-      $estado = new EstadoSucursal();
-      $aEstados = $estado->obtenerTodos();
-
-      $sucursal = new Sucursal();
-      $aSucursales = $sucursal->obtenerTodos();
-
       ?>
       <form id="form1" method="POST">
             <div class="row">
@@ -60,16 +48,20 @@
                         <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required value="{{$sucursal->telefono}}">
                   </div>
                   <div class="form-group col-lg-6">
-                        <label>dirección: *</label>
+                        <label>Dirección: *</label>
                         <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" required value="{{$sucursal->direccion}}">
                   </div>
                   <div class="form-group col-lg-6">
                         <label>Estado: *</label>
                         <select type="text" id="lstEstado" name="lstEstado" class="form-control select" data-live-search="true" required>
                               <option value="" disabled selected>Seleccionar</option>
-                              <?php foreach ($aEstados as $estado) : ?>
+                              @foreach ($aEstados as $estado)
+                                    @if($sucursal->fk_idestadosucursal == $estado->idestadosucursal )
+                                    <option selected value="<?php echo $estado->idestadosucursal ?>"><?php echo $estado->nombre; ?></option>
+                                    @else
                                     <option value="<?php echo $estado->idestadosucursal ?>"><?php echo $estado->nombre; ?></option>
-                              <?php endforeach; ?>
+                                    @endif
+                               @endforeach
                         </select>
                   </div>
                   <div class="form-group col-lg-6">
