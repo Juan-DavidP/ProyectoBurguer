@@ -70,12 +70,12 @@ class Postulacion extends Model
     public function guardar()
     {
         $sql = "UPDATE postulaciones SET
-        nombre = '?',
-        apellido = '?',
-        telefono = '?',
-        direccion = '?',
-        correo = '?',
-        curriculum = '?'
+        nombre = ?,
+        apellido = ?,
+        telefono = ?,
+        direccion = ?,
+        correo = ?,
+        curriculum = ?
         WHERE idpostulacion = ?";
         $affected = DB::update($sql, [
             $this->nombre,

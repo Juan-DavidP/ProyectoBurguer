@@ -75,11 +75,11 @@ class Producto extends Model
     public function guardar()
     {
         $sql = "UPDATE productos SET
-        nombre = '?',
+        nombre = ?,
         cantidad = ?,
         precio = ?,
-        descripcion = '?',
-        imagen = '?',
+        descripcion = ?,
+        imagen = ?,
         fk_idcategoria = ?
         WHERE idproducto = ?";
         $affected = DB::update($sql, [

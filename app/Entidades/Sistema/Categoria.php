@@ -49,7 +49,7 @@ class Categoria extends Model
       public function guardar()
       {
             $sql = "UPDATE categorias SET
-            nombre='?'
+            nombre=?
             WHERE idcategoria=?";
             $affected = DB::update($sql, [
                   $this->nombre,
