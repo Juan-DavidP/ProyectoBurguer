@@ -72,13 +72,13 @@ class Cliente extends Model
     {
         if ($this->clave != "") {
             $sql = "UPDATE clientes SET
-            nombre='?',
-            apellido='?',
-            correo='?',
-            telefono='?',
-            dni='?',
-            clave='?'
-            WHERE idcliente=?";
+            nombre = ?,
+            apellido = ?,
+            correo = ?,
+            telefono = ?,
+            dni = ?,
+            clave = ?
+            WHERE idcliente = ?";
             $affected = DB::update($sql, [
                 $this->nombre,
                 $this->apellido,
@@ -88,13 +88,14 @@ class Cliente extends Model
                 $this->clave,
                 $this->idcliente,
             ]);
+
         } else {
             $sql = "UPDATE clientes SET
-            nombre='?',
-            apellido='?',
-            correo='?',
-            telefono='?',
-            dni='?'
+            nombre=?,
+            apellido=?,
+            correo=?,
+            telefono=?,
+            dni=?
             WHERE idcliente=?";
             $affected = DB::update($sql, [
                 $this->nombre,
