@@ -37,7 +37,7 @@
 		echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
 	}
 	?>
-	<form id="form1" method="POST">
+	<form id="form1" method="POST" enctype="multipart/form-data">
 		<div class="row">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
 			<input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
@@ -63,7 +63,7 @@
 			</div>
 			<div class="form-group col-lg-12">
 				<label>Curriculum: *</label>
-				<input type="file" id="cv" name="cv" class="form-control-file" accept=".pdf, .doc, .docx, .txt" <?php echo $postulacion->idpostulacion > 0? "":"required";?>>
+				<input type="file" id="cv" name="cv" class="form-control-file" accept=".pdf, .doc, .docx, .txt" <?php echo $postulacion->idpostulacion > 0? "" : "required";?>>
 				<small class="d-block">Archivos admitidos: PDF, DOC, DOCX, TXT</small>
 			</div>
 		</div>

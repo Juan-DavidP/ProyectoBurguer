@@ -28,8 +28,7 @@ if (isset($msg)) {
 }
 
 
-$producto = new Producto();
-$productos = $producto->obtenerTodos();
+
 
 ?>
 <table id="grilla" class="display table table-bordered table-hover">
