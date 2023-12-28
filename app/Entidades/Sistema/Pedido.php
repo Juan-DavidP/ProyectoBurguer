@@ -73,6 +73,23 @@ class Pedido extends Model
         return $lstRetorno;
     }
 
+    public function obtenerPorSucursal($idSucursal)
+    {
+        $sql = "SELECT 
+                    idpedido, 
+                    fecha, 
+                    total, 
+                    fk_idcliente, 
+                    fk_idsucursal, 
+                    fk_idestado,
+                    metodo_pago,
+                    comentario
+                FROM pedidos
+                WHERE fk_idsucursal= $idSucursal";
+        $lstRetorno = DB::select($sql);
+        return $lstRetorno;
+    }
+
     public function obtenerPorId($idPedido)
     {
         $sql = "SELECT 
