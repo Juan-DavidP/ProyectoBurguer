@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Entidades\Sistema\Sucursal;
 use App\Entidades\Sistema\EstadoSucursal;
 use App\Entidades\Sistema\Pedido;
+use App\Entidades\Sistema\Usuario;
+use App\Entidades\Sistema\Patente;
 
 require app_path() . '/start/constants.php';
 
@@ -13,13 +15,22 @@ class ControladorSucursal extends Controller
 {
     public function nuevo()
     {
-        $titulo = "Nueva sucursal";
-        $sucursal = new Sucursal();
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("SUCURSALALTA")) {
+                $codigo = "SUCURSALALTA";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                $titulo = "Nueva sucursal";
+                $sucursal = new Sucursal();
 
-        $estado = new EstadoSucursal();
-        $aEstados = $estado->obtenerTodos();
-
-        return view('sistema.sucursal-nuevo', compact('titulo', 'sucursal', 'aEstados'));
+                $estado = new EstadoSucursal();
+                $aEstados = $estado->obtenerTodos();
+                return view('sistema.sucursal-nuevo', compact('titulo', 'sucursal', 'aEstados'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
     public function index()
@@ -42,7 +53,7 @@ class ControladorSucursal extends Controller
                 $msg["MSG"] = "Complete todos los datos";
 
                 $sucursal = new Sucursal();
-                $sucursal->obtenerPorId($entidad->idsucursal);   
+                $sucursal->obtenerPorId($entidad->idsucursal);
 
                 $estado = new EstadoSucursal();
                 $aEstados = $estado->obtenerTodos();
@@ -109,29 +120,42 @@ class ControladorSucursal extends Controller
     public function editar($id)
     {
         $titulo = "Edición de sucursal";
-        $sucursal = new Sucursal();
-        $sucursal->obtenerPorId($id);
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("SUCURSALEDITAR")) {
+                $codigo = "SUCURSALEDITAR";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                $sucursal = new Sucursal();
+                $sucursal->obtenerPorId($id);
 
-        $estado = new EstadoSucursal();
-        $aEstados = $estado->obtenerTodos();
+                $estado = new EstadoSucursal();
+                $aEstados = $estado->obtenerTodos();
 
-        return view('sistema.sucursal-nuevo', compact('titulo', 'sucursal', 'aEstados'));
+                return view('sistema.sucursal-nuevo', compact('titulo', 'sucursal', 'aEstados'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
-    public function eliminar(Request $request){
-        $id = $request->input("id");
-        //Si no tiene ventas asociadas, elimina la sucursal
-        $pedido = new Pedido();
-        $aPedidos = $pedido->obtenerPorSucursal($id);
+    public function eliminar(Request $request)
+    {
+        if (Usuario::autenticado() == true && Patente::autorizarOperacion("CLIENTEELIMINAR")) {
+            $id = $request->input("id");
+            //Si no tiene ventas asociadas, elimina la sucursal
+            $pedido = new Pedido();
+            $aPedidos = $pedido->obtenerPorSucursal($id);
 
-        if(count($aPedidos) == 0){
-            $sucursal = new Sucursal();
-            $sucursal->idsucursal = $id;
-            $sucursal->eliminar();
-            $data["err"]="OK";
-        } else {
-            $data["err"] = "No se puede eliminar una sucursal con pedidos asociados.";
+            if (count($aPedidos) == 0) {
+                $sucursal = new Sucursal();
+                $sucursal->idsucursal = $id;
+                $sucursal->eliminar();
+                $data["err"] = "OK";
+            } else {
+                $data["err"] = "No se puede eliminar una sucursal con pedidos asociados.";
+            }
+            return json_encode($data);
         }
-        return json_encode($data);
     }
 }

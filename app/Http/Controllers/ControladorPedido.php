@@ -8,7 +8,9 @@ use App\Entidades\Sistema\Pedido;
 use App\Entidades\Sistema\ProductoPedido;
 use App\Entidades\Sistema\Sucursal;
 use App\Entidades\Sistema\Estado;
-use App\Entidades\Sistema\Producto;
+use App\Entidades\Sistema\Usuario;
+use App\Entidades\Sistema\Patente;
+
 
 require app_path() . '/start/constants.php';
 
@@ -17,8 +19,20 @@ class ControladorPedido extends Controller
     public function index()
     {
         $titulo = "Listado de pedidos";
-        return view('sistema.pedido-listar', compact('titulo'));
+        $titulo = "Listado de clientes";
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("PEDIDOCONSULTA")) {
+                $codigo = "PEDIDOCONSULTA";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                return view('sistema.pedido-listar', compact('titulo'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
+
 
     public function guardar(Request $request)
     {
@@ -105,15 +119,19 @@ class ControladorPedido extends Controller
     {
         $titulo = "Edición de pedido";
         $metodos_pago = ["Efectivo", "Transferencia", "Bono"];
-        $pedido = new Pedido();
-        $pedido->obtenerPorId($id);
 
-        $estado = new Estado();
-        $aEstados = $estado->obtenerTodos();
-        
-        $productoPedido = new ProductoPedido();
-        $aProductosPedido = $productoPedido->obtenerTodosPorPedido($id);
+        if (Usuario::autenticado() == true && Patente::autorizarOperacion("PEDIDOEDITAR")) {
 
-        return view('sistema.ver-pedido', compact('titulo', 'pedido', 'aEstados', 'metodos_pago', 'aProductosPedido'));
+            $pedido = new Pedido();
+            $pedido->obtenerPorId($id);
+
+            $estado = new Estado();
+            $aEstados = $estado->obtenerTodos();
+
+            $productoPedido = new ProductoPedido();
+            $aProductosPedido = $productoPedido->obtenerTodosPorPedido($id);
+
+            return view('sistema.ver-pedido', compact('titulo', 'pedido', 'aEstados', 'metodos_pago', 'aProductosPedido'));
+        }
     }
 }
