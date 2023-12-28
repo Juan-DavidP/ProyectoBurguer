@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entidades\Sistema\Cliente;
 use Illuminate\Http\Request;
 use App\Entidades\Sistema\Pedido;
+use App\Entidades\Sistema\ProductoPedido;
 use App\Entidades\Sistema\Sucursal;
 use App\Entidades\Sistema\Estado;
 use App\Entidades\Sistema\Producto;
@@ -102,7 +103,7 @@ class ControladorPedido extends Controller
 
     public function editar($id)
     {
-        $titulo = "Edicción de pedido";
+        $titulo = "Edición de pedido";
         $metodos_pago = ["Efectivo", "Transferencia", "Bono"];
         $pedido = new Pedido();
         $pedido->obtenerPorId($id);
@@ -110,8 +111,8 @@ class ControladorPedido extends Controller
         $estado = new Estado();
         $aEstados = $estado->obtenerTodos();
         
-        $producto = new Producto();
-        $aProductos = $producto->obtenerTodos();
+        $productoPedido = new ProductoPedido();
+        $aProductosPedido = $productoPedido->obtenerTodosPorPedido($id);
 
         return view('sistema.ver-pedido', compact('titulo', 'pedido', 'aEstados', 'metodos_pago', 'aProductos'));
     }
