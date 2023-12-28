@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Entidades\Sistema\Producto;
+use App\Entidades\Sistema\Patente;
 use App\Entidades\Sistema\Categoria;
 use App\Entidades\Sistema\Pedido;
+use App\Entidades\Sistema\Usuario;
+use Illuminate\Http\Request;
 
 require app_path() . '/start/constants.php';
 
@@ -14,17 +16,37 @@ class ControladorProducto extends Controller
     public function nuevo()
     {
         $titulo = "Nuevo producto";
-        $producto = new Producto();
-        $categoria = new Categoria();
-        $aCategorias = $categoria->obtenerTodos();
-
-        return view('sistema.producto-nuevo', compact('titulo', 'producto', 'aCategorias'));
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("PRODUCTOSALTA")) {
+                $codigo = "PRODUCTOSALTA";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                $producto = new Producto();
+                $categoria = new Categoria();
+                $aCategorias = $categoria->obtenerTodos();
+                return view('sistema.producto-nuevo', compact('titulo', 'producto', 'aCategorias'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
     public function index()
     {
         $titulo = "Listado de productos";
-        return view('sistema.producto-listar', compact('titulo'));
+    
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("PRODUCTOCONSULTA")) {
+                $codigo = "PRODUCTOCONSULTA";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                return view('sistema.producto-listar', compact('titulo'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
     public function guardar(Request $request)
@@ -120,7 +142,8 @@ class ControladorProducto extends Controller
         return json_encode($json_data);
     }
 
-    public function editar($id){
+    public function editar($id)
+    {
         $titulo = "Edición de producto";
         $producto = new Producto();
         $producto->obtenerPorId($id);
@@ -129,24 +152,24 @@ class ControladorProducto extends Controller
         $categoria = new Categoria();
         $aCategorias = $categoria->obtenerTodos();
 
-        return view('sistema.producto-nuevo', compact('titulo', 'producto' ,'aCategorias'));
+        return view('sistema.producto-nuevo', compact('titulo', 'producto', 'aCategorias'));
     }
 
-    public function eliminar(Request $request){
+    public function eliminar(Request $request)
+    {
         $id = $request->input("id");
         //Si no tiene ventas asociadas, elimina el cliente
         $pedido = new Pedido();
         $aPedidos = $pedido->obtenerPorProducto($id);
 
-        if(count($aPedidos) == 0){
+        if (count($aPedidos) == 0) {
             $producto = new Producto();
             $producto->idproducto = $id;
             $producto->eliminar();
-            $data["err"]="OK";
+            $data["err"] = "OK";
         } else {
             $data["err"] = "No se puede eliminar un producto con pedidos asociados.";
         }
         return json_encode($data);
     }
-    
 }

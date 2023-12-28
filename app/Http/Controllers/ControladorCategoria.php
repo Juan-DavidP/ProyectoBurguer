@@ -3,9 +3,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Entidades\Sistema\Categoria;
+use App\Entidades\Sistema\Patente;
 use App\Entidades\Sistema\Producto;
+use App\Entidades\Sistema\Usuario;
+use Illuminate\Http\Request;
 
 require app_path() . '/start/constants.php';
 
@@ -14,14 +16,35 @@ class ControladorCategoria extends Controller
     public function nuevo()
     {
         $titulo = "Nueva categoría";
-        $categoria = new Categoria();
-        return view('sistema.categoria-nuevo', compact('titulo', 'categoria'));
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("CATEGORIAALTA")) {
+                $codigo = "CATEGORIAALTA";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                $categoria = new Categoria();
+                return view('sistema.categoria-nuevo', compact('titulo', 'categoria'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
     public function index()
     {
         $titulo = "Listado de categorías";
-        return view('sistema.categoria-listar', compact('titulo'));
+
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("CATEGORIACONSULTA")) {
+                $codigo = "CATEGORIACONSULTA";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                return view('sistema.categoria-listar', compact('titulo'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
     public function guardar(Request $request)
@@ -95,27 +118,41 @@ class ControladorCategoria extends Controller
         return json_encode($json_data);
     }
 
-    public function editar($id){
+    public function editar($id)
+    {
         $titulo = "Edición de categoria";
-        $categoria = new Categoria();
-        $categoria->obtenerPorId($id);
-        return view('sistema.categoria-nuevo', compact('titulo', 'categoria'));
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("CATEGORIAEDITAR")) {
+                $codigo = "CATEGORIAEDITAR";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                $categoria = new Categoria();
+                $categoria->obtenerPorId($id);
+                return view('sistema.categoria-nuevo', compact('titulo', 'categoria'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
-    public function eliminar(Request $request){
-        $id = $request->input("id");
-        //Si no tiene ventas asociadas, elimina el cliente
-        $producto = new Producto();
-        $aProductos = $producto->obtenerPorCategoria($id);
+    public function eliminar(Request $request)
+    {
+        if (Usuario::autenticado() == true && Patente::autorizarOperacion("CLIENTEELIMINAR")) {
+            $id = $request->input("id");
+            //Si no tiene ventas asociadas, elimina la categoria
+            $producto = new Producto();
+            $aProductos = $producto->obtenerPorCategoria($id);
 
-        if(count($aProductos) == 0){
-            $categoria = new Categoria();
-            $categoria->idcategoria = $id;
-            $categoria->eliminar();
-            $data["err"]="OK";
-        } else {
-            $data["err"] = "No se puede eliminar una categoria con productos asociados.";
+            if (count($aProductos) == 0) {
+                $categoria = new Categoria();
+                $categoria->idcategoria = $id;
+                $categoria->eliminar();
+                $data["err"] = "OK";
+            } else {
+                $data["err"] = "No se puede eliminar una categoria con productos asociados.";
+            }
+            return json_encode($data);
         }
-        return json_encode($data);
     }
 }
