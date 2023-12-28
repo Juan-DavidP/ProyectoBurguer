@@ -23,7 +23,7 @@
 </ol>
 <script>
       function fsalir() {
-            location.href = "/admin/sucursal";
+            location.href = "/admin/sucursales";
       }
 </script>
 @endsection
@@ -83,5 +83,22 @@
                   return false;
             }
       }
+      function eliminar() {
+        $.ajax({
+            type: "GET",
+            url: "{{ asset('admin/sucursal/eliminar') }}",
+            data: { id:globalId },
+            async: true,
+            dataType: "json",
+            success: function (data) {
+                if (data.err == "OK") {
+                    msgShow("Sucursal eliminada exitosamente.", "success");
+                } else {
+                    msgShow(data.err, "danger");
+                }
+                $('#mdlEliminar').modal('toggle');
+            }
+        });
+    }
 </script>
 @endsection
