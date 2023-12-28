@@ -114,6 +114,6 @@ class ControladorPedido extends Controller
         $productoPedido = new ProductoPedido();
         $aProductosPedido = $productoPedido->obtenerTodosPorPedido($id);
 
-        return view('sistema.ver-pedido', compact('titulo', 'pedido', 'aEstados', 'metodos_pago', 'aProductos'));
+        return view('sistema.ver-pedido', compact('titulo', 'pedido', 'aEstados', 'metodos_pago', 'aProductosPedido'));
     }
 }

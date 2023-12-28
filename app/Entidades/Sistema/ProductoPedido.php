@@ -42,15 +42,19 @@ class ProductoPedido extends Model
       public function obtenerTodosPorPedido($idpedido)
       {
             $sql = "SELECT 
-            p.idproductopedido, 
-            p.fk_idproducto, 
-            p.fk_idpedido, 
-            p.precio_unitario, 
-            p.cantidad, 
-            p.total
-            a.nombre as pedido
-            FROM productos_pedidos p
-            JOIN pedidos a ON p.fk_idpedido = a.idpedido
+            pp.idproductopedido, 
+            pp.fk_idproducto, 
+            pp.fk_idpedido, 
+            pp.precio_unitario, 
+            pp.cantidad, 
+            pp.total,
+            p.nombre,
+            p.imagen,
+            pp.cantidad,
+            p.descripcion,
+            p.precio
+            FROM productos_pedidos pp
+            INNER JOIN productos p ON pp.fk_idproducto = p.idproducto
             WHERE fk_idpedido=$idpedido";
 
             $lstRetorno = DB::select($sql);

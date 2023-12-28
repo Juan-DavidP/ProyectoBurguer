@@ -100,7 +100,8 @@
                               </tr>
                         </thead>
                         <tbody>
-                              @foreach ($aProductos as $producto)
+                              <?php $total = 0; ?>
+                              @foreach ($aProductosPedido as $producto)
                               <tr>
                                     <td><img src="/files/<?php echo $producto->imagen ?>" alt="Imagen del producto" class="img-thumbnail" width="150px"></td>
                                     <td><?php echo $producto->nombre ?></td>
@@ -109,11 +110,12 @@
                                     <td><?php echo $producto->descripcion ?></td>
                                     <td><?php echo $producto->precio ?></td>
                               </tr>
+                              <?php $total += $producto->cantidad * $producto->precio; ?>
                               @endforeach
                         </tbody>
                         <tfoot>
                               <td colspan="5" class="text-right h3">Total:</td>
-                              <td><?php echo number_format($producto->cantidad * $producto->precio,"0", ",","."); ?></td>
+                              <td><?php echo number_format($total,"0", ",","."); ?></td>
                         </tfoot>
                   </table>
 
