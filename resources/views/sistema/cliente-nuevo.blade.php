@@ -2,8 +2,8 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-    globalId = '<?php echo isset($cliente->idcliente) && $cliente->idcliente > 0 ? $cliente->idcliente : 0; ?>';
-    <?php $globalId = isset($cliente->idcliente) ? $cliente->idcliente : "0";?>
+	globalId = '<?php echo isset($cliente->idcliente) && $cliente->idcliente > 0 ? $cliente->idcliente : 0; ?>';
+	<?php $globalId = isset($cliente->idcliente) ? $cliente->idcliente : "0"; ?>
 </script>
 @endsection
 @section('breadcrumb')
@@ -61,7 +61,7 @@
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Clave: *</label>
-				<input type="password" name="txtClave" id="txtClave" class="form-control" <?php echo $cliente->idcliente > 0? "":"required";?>>
+				<input type="password" name="txtClave" id="txtClave" class="form-control" <?php echo $cliente->idcliente > 0 ? "" : "required"; ?>>
 			</div>
 		</div>
 	</form>
@@ -77,22 +77,25 @@
 			return false;
 		}
 	}
+
 	function eliminar() {
-        $.ajax({
-            type: "GET",
-            url: "{{ asset('admin/cliente/eliminar') }}",
-            data: { id:globalId },
-            async: true,
-            dataType: "json",
-            success: function (data) {
-                if (data.err == "OK") {
-                    msgShow("Registro eliminado exitosamente.", "success");
-                } else {
-                    msgShow(data.err, "danger");
-                }
-                $('#mdlEliminar').modal('toggle');
-            }
-        });
-    }
+		$.ajax({
+			type: "GET",
+			url: "{{ asset('admin/cliente/eliminar') }}",
+			data: {
+				id: globalId
+			},
+			async: true,
+			dataType: "json",
+			success: function(data) {
+				if (data.err == "OK") {
+					msgShow("Registro eliminado exitosamente.", "success");
+				} else {
+					msgShow(data.err, "danger");
+				}
+				$('#mdlEliminar').modal('toggle');
+			}
+		});
+	}
 </script>
 @endsection
