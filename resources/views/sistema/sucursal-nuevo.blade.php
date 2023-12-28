@@ -56,8 +56,8 @@
                         <select type="text" id="lstEstado" name="lstEstado" class="form-control select" data-live-search="true" required>
                               <option value="" disabled selected>Seleccionar</option>
                               @foreach ($aEstados as $estado)
-                                    @if($sucursal->fk_idestadosucursal == $estado->idestadosucursal )
-                                    <option selected value="<?php echo $estado->idestadosucursal ?>"><?php echo $estado->nombre; ?></option>
+                                    @if($sucursal->fk_idestadosucursal == $estado->idestadosucursal)
+                                    <option selected value="<?php echo $estado->idestadosucursal; ?>"><?php echo $estado->nombre; ?></option>
                                     @else
                                     <option value="<?php echo $estado->idestadosucursal ?>"><?php echo $estado->nombre; ?></option>
                                     @endif
