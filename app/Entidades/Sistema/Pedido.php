@@ -54,19 +54,21 @@ class Pedido extends Model
         return $lstRetorno;
     }
 
-    public function obtenerPorSucursal($idSucursal)
+    public function obtenerPorProducto($idProducto)
     {
         $sql = "SELECT 
-                    idpedido, 
-                    fecha, 
-                    total, 
-                    fk_idcliente, 
-                    fk_idsucursal, 
-                    fk_idestado,
-                    metodo_pago,
-                    comentario
-                FROM pedidos
-                WHERE fk_idsucursal= $idSucursal";
+                p.idpedido, 
+                p.fecha, 
+                p.total, 
+                p.fk_idcliente, 
+                p.fk_idsucursal, 
+                p.fk_idestado,
+                p.metodo_pago
+            FROM pedidos p
+            INNER JOIN clientes c ON p.fk_idcliente = c.idcliente
+            INNER JOIN productos_pedidos pp ON p.idpedido = pp.fk_idpedido
+            WHERE pp.fk_idproducto = $idProducto";
+
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }

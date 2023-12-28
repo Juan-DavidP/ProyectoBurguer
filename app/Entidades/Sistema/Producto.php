@@ -46,6 +46,25 @@ class Producto extends Model
     return $lstRetorno;
     }
 
+    public function obtenerPorCategoria($idcategoria)
+    {
+    $sql = "SELECT 
+        p.idproducto, 
+        p.nombre, 
+        p.cantidad, 
+        p.precio, 
+        p.descripcion, 
+        p.imagen,
+        p.fk_idcategoria,
+        c.nombre as categoria
+        FROM productos p
+        JOIN categorias c ON p.fk_idcategoria = c.idcategoria
+        WHERE fk_idcategoria=$idcategoria";
+
+    $lstRetorno = DB::select($sql);
+    return $lstRetorno;
+    }
+
 
     public function obtenerPorId($idProducto)
     {

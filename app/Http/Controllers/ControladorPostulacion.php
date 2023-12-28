@@ -26,9 +26,17 @@ class ControladorPostulacion extends Controller
     {
         try {
             //Define la entidad servicio
-            $titulo = "Modificar cliente";
+            $titulo = "Modificar producto";
             $entidad = new Postulacion();
             $entidad->cargarDesdeRequest($request);
+
+            if (isset($_FILES["cv"]) && $_FILES["cv"]["error"] === UPLOAD_ERR_OK) { //Se adjunta el cv
+                $extension = pathinfo($_FILES["cv"]["name"], PATHINFO_EXTENSION);
+                $nombre = date("Ymdhmsi") . ".$extension";
+                $archivo = $_FILES["cv"]["tmp_name"];
+                move_uploaded_file($archivo, env('APP_PATH') . "/public/files/$nombre"); //guardaelarchivo
+                $entidad->curriculum = $nombre;
+            }
 
             //validaciones
             if ($entidad->nombre == "") {
@@ -37,9 +45,20 @@ class ControladorPostulacion extends Controller
 
                 $postulacion = new Postulacion();
                 $postulacion->obtenerPorId($entidad->idpostulacion);
-                return view('sistema.postulacion-nuevo', compact('msg', 'postulacion', 'titulo')) . '?id=' . $entidad->idpostulacion;
+
+                return view('sistema.postulacion-nuevo', compact('msg', 'producto', 'titulo')) . '?id=' . $entidad->idpostulacion;
             } else {
                 if ($_POST["id"] > 0) {
+                    $postulacionAnt = new Postulacion();
+                    $postulacionAnt->obtenerPorId($entidad->idpostulacion);
+
+                    if ($_FILES["imagen"]["error"] === UPLOAD_ERR_OK) {
+                        //Eliminar cv anterior
+                        @unlink(env('APP_PATH') . "/public/files/$postulacionAnt->curriculum");
+                    } else {
+                        $entidad->curriculum = $postulacionAnt->curriculum;
+                    }
+
                     //Es actualizacion
                     $entidad->guardar();
 
@@ -52,9 +71,7 @@ class ControladorPostulacion extends Controller
                     $msg["ESTADO"] = MSG_SUCCESS;
                     $msg["MSG"] = OKINSERT;
                 }
-
                 $_POST["id"] = $entidad->idpostulacion;
-                $titulo = "Listado de postulaciones";
                 return view('sistema.postulacion-listar', compact('titulo', 'msg'));
             }
         } catch (Exception $e) {
@@ -97,10 +114,21 @@ class ControladorPostulacion extends Controller
         return json_encode($json_data);
     }
 
-    public function editar($id){
+    public function editar($id)
+    {
         $titulo = "Edición de postulación";
         $postulacion = new Postulacion();
         $postulacion->obtenerPorId($id);
         return view('sistema.postulacion-nuevo', compact('titulo', 'postulacion'));
+    }
+
+    public function eliminar(Request $request)
+    {
+        $id = $request->input("id");
+        $postulacion = new Postulacion();
+        $postulacion->idpostulacion = $id;
+        $postulacion->eliminar();
+        $data["err"] = "OK";
+        return json_encode($data);
     }
 }
