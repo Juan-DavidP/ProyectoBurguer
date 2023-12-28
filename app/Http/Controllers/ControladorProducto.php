@@ -35,7 +35,7 @@ class ControladorProducto extends Controller
     public function index()
     {
         $titulo = "Listado de productos";
-    
+
         if (Usuario::autenticado() == true) {
             if (!Patente::autorizarOperacion("PRODUCTOCONSULTA")) {
                 $codigo = "PRODUCTOCONSULTA";
@@ -145,31 +145,44 @@ class ControladorProducto extends Controller
     public function editar($id)
     {
         $titulo = "Edición de producto";
-        $producto = new Producto();
-        $producto->obtenerPorId($id);
 
 
-        $categoria = new Categoria();
-        $aCategorias = $categoria->obtenerTodos();
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("PRODUCTOEDITAR")) {
+                $codigo = "PRODUCTOEDITAR";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                $producto = new Producto();
+                $producto->obtenerPorId($id);
 
-        return view('sistema.producto-nuevo', compact('titulo', 'producto', 'aCategorias'));
+
+                $categoria = new Categoria();
+                $aCategorias = $categoria->obtenerTodos();
+                return view('sistema.producto-nuevo', compact('titulo', 'producto', 'aCategorias'));
+            }
+        } else {
+            return redirect('admin/login');
+        }
     }
 
     public function eliminar(Request $request)
     {
-        $id = $request->input("id");
-        //Si no tiene ventas asociadas, elimina el cliente
-        $pedido = new Pedido();
-        $aPedidos = $pedido->obtenerPorProducto($id);
+        if (Usuario::autenticado() == true && Patente::autorizarOperacion("PRODUCTOELIMINAR")) {
+            $id = $request->input("id");
+            //Si no tiene ventas asociadas, elimina el cliente
+            $pedido = new Pedido();
+            $aPedidos = $pedido->obtenerPorProducto($id);
 
-        if (count($aPedidos) == 0) {
-            $producto = new Producto();
-            $producto->idproducto = $id;
-            $producto->eliminar();
-            $data["err"] = "OK";
-        } else {
-            $data["err"] = "No se puede eliminar un producto con pedidos asociados.";
+            if (count($aPedidos) == 0) {
+                $producto = new Producto();
+                $producto->idproducto = $id;
+                $producto->eliminar();
+                $data["err"] = "OK";
+            } else {
+                $data["err"] = "No se puede eliminar un producto con pedidos asociados.";
+            }
+            return json_encode($data);
         }
-        return json_encode($data);
     }
 }
