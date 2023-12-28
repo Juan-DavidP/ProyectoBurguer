@@ -39,6 +39,25 @@ class ProductoPedido extends Model
             return $lstRetorno;
       }
 
+      public function obtenerTodosPorPedido($idpedido)
+      {
+            $sql = "SELECT 
+            p.idproductopedido, 
+            p.fk_idproducto, 
+            p.fk_idpedido, 
+            p.precio_unitario, 
+            p.cantidad, 
+            p.total
+            a.nombre as pedido
+            FROM productos_pedidos p
+            JOIN pedidos a ON p.fk_idpedido = a.idpedido
+            WHERE fk_idpedido=$idpedido";
+
+            $lstRetorno = DB::select($sql);
+            return $lstRetorno;
+      }
+
+      
       public function obtenerPorId($idproductopedido)
       {
             $sql = "SELECT 
