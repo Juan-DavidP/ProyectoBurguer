@@ -9,7 +9,7 @@
 @section('breadcrumb')
 <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin/">Inicio</a></li>
-      <li class="breadcrumb-item"><a href="/admin/pedidos">pedidos</a></li>
+      <li class="breadcrumb-item"><a href="/admin/pedidos">Pedidos</a></li>
       <li class="breadcrumb-item active">Ver pedido</li>
 </ol>
 <ol class="toolbar">
@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-lg-6 form-group">
                         <label>Comentarios:</label>
-                        <textarea name="txtComentarios" id="txtComentarios" class="form-control" disabled>
+                        <textarea name="txtComentarios" id="txtComentarios" class="form-control" disabled  style="height:100px !important">
                               <?php echo $pedido->comentario ?>
                         </textarea>
                   </div>
