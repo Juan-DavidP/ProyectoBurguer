@@ -21,7 +21,6 @@ class Pedido extends Model
         $this->idpedido = $request->input('id') != "0" ? $request->input('id') : $this->idpedido;
         $this->fk_idestado = $request->input('lstEstado');
         $this->metodo_pago = $request->input('lstMetodoPago');
-        
     }
 
     public function obtenerTodos()
@@ -48,7 +47,7 @@ class Pedido extends Model
                     fk_idsucursal, 
                     fk_idestado,
                     metodo_pago,
-                    comentarios
+                    comentario
                 FROM pedidos
                 WHERE fk_idcliente= $idCliente";
         $lstRetorno = DB::select($sql);

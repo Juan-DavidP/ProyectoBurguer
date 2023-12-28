@@ -137,6 +137,7 @@ Route::get('/admin/sucursales', 'ControladorSucursal@index');
 Route::get('/admin/sucursal/nuevo', 'ControladorSucursal@nuevo');
 Route::post('/admin/sucursal/nuevo', 'ControladorSucursal@guardar');
 Route::get('/admin/sucursal/cargarGrilla', 'ControladorSucursal@cargarGrilla')->name('sucursal.cargarGrilla');
+Route::get('/admin/sucursal/eliminar', 'ControladorSucursal@eliminar');
 Route::get('/admin/sucursal/{id}', 'ControladorSucursal@editar');
 Route::post('/admin/sucursal/{id}', 'ControladorSucursal@guardar');
 
