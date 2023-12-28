@@ -16,7 +16,7 @@ class Estado extends Model
 
       public function obtenerTodos()
       {
-            $sql = "SELECT * FROM estados";
+            $sql = "SELECT idestado, nombre FROM estados";
             $lstRetorno = DB::select($sql);
             return $lstRetorno;
       }

@@ -16,6 +16,14 @@ class Pedido extends Model
 
     protected $hidden = [];
 
+    public function cargarDesdeRequest($request)
+    {
+        $this->idpedido = $request->input('id') != "0" ? $request->input('id') : $this->idpedido;
+        $this->fk_idestado = $request->input('lstEstado');
+        $this->metodo_pago = $request->input('lstMetodoPago');
+        
+    }
+
     public function obtenerTodos()
     {
         $sql = "SELECT 
@@ -29,6 +37,7 @@ class Pedido extends Model
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }
+
     public function obtenerPorCliente($idCliente)
     {
         $sql = "SELECT 
@@ -38,9 +47,10 @@ class Pedido extends Model
                     fk_idcliente, 
                     fk_idsucursal, 
                     fk_idestado,
-                    metodo_pago 
+                    metodo_pago,
+                    comentarios
                 FROM pedidos
-                WHERE fk_idcliente=$idCliente";
+                WHERE fk_idcliente= $idCliente";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }
@@ -67,23 +77,34 @@ class Pedido extends Model
     public function obtenerPorId($idPedido)
     {
         $sql = "SELECT 
-        idpedido, 
-        fecha, 
-        total, 
-        fk_idcliente, 
-        fk_idsucursal, 
-        fk_idestado,
-        metodo_pago FROM pedidos WHERE idpedido = $idPedido";
+        P.idpedido, 
+        P.fecha, 
+        P.total, 
+        P.fk_idcliente, 
+        P.fk_idsucursal, 
+        P.fk_idestado,
+        P.metodo_pago,
+        P.comentario,
+        C.nombre AS cliente,
+        S.nombre AS sucursal,
+        E.nombre AS estado
+        FROM pedidos P
+        INNER JOIN clientes C ON C.idcliente = P.fk_idcliente
+        INNER JOIN sucursales S ON S.idsucursal = P.fk_idsucursal
+        INNER JOIN estados E ON E.idestado = P.fk_idestado
+        WHERE idpedido = $idPedido
+        ";
         $lstRetorno = DB::select($sql);
 
         if (count($lstRetorno) > 0) {
             $this->idpedido = $lstRetorno[0]->idpedido;
             $this->fecha = $lstRetorno[0]->fecha;
             $this->total = $lstRetorno[0]->total;
-            $this->fk_idcliente = $lstRetorno[0]->fk_idcliente;
-            $this->fk_idsucursal = $lstRetorno[0]->fk_idsucursal;
-            $this->fk_idestado = $lstRetorno[0]->fk_idestado;
+            $this->fk_idcliente = $lstRetorno[0]->cliente;
+            $this->fk_idsucursal = $lstRetorno[0]->sucursal;
+            $this->fk_idestado = $lstRetorno[0]->estado;
             $this->metodo_pago = $lstRetorno[0]->metodo_pago;
+            $this->comentario = $lstRetorno[0]->comentario;
             return $this;
         }
         return null;
@@ -94,46 +115,7 @@ class Pedido extends Model
         $sql = "DELETE FROM pedidos WHERE idpedido =?";
         $affected = DB::delete($sql, [$this->idpedido]);
     }
-    /*
-    public function insertar()
-    {
-        $sql = "INSERT INTO productos(
-            fecha,
-            total,
-            fk_idcliente,
-            fk_idsucursal,
-            fk_idestado
-            metodo_pago
-            ) VALUES (?, ?, ?, ?, ?, ?)";
-        $result = DB::insert($sql, [
-            $this->fecha,
-            $this->total,
-            $this->fk_idcliente,
-            $this->fk_idsucursal,
-            $this->fk_idestado,
-            $this->metodo_pago
-        ]);
-        return $this->idpedido = DB::getpdo()->lastInsertId();
-    }
-    public function guardar()
-    {
-        $sql = "UPDATE productos SET
-        nombre = '?',
-        cantidad = ?,
-        precio = ?,
-        descripcion = '?',
-        imagen = '?',
-        fk_idcategoria = ?
-        WHERE idproducto = ?";
-        $affected = DB::update($sql, [
-            $this->nombre,
-            $this->cantidad,
-            $this->precio,
-            $this->descripcion,
-            $this->imagen,
-            $this->fk_idcategoria
-        ]);
-    }*/
+
 
     public function obtenerFiltrado()
     {
@@ -158,7 +140,6 @@ class Pedido extends Model
                 FROM pedidos A
                 WHERE 1=1
                 ";
-
         //Realiza el filtrado
         if (!empty($request['search']['value'])) {
             $sql .= " AND ( A.fecha LIKE '%" . $request['search']['value'] . "%' ";
@@ -172,5 +153,18 @@ class Pedido extends Model
         $lstRetorno = DB::select($sql);
 
         return $lstRetorno;
+    }
+
+    public function guardar()
+    {
+        $sql = "UPDATE pedidos SET
+        fk_idestado = ?,
+        metodo_pago = ?
+        WHERE idpedido = ?";
+        $affected = DB::update($sql, [
+            $this->fk_idestado,
+            $this->metodo_pago,
+            $this->idpedido
+        ]);
     }
 }

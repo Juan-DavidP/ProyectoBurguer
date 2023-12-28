@@ -157,3 +157,5 @@ Route::post('/admin/categoria/{id}', 'ControladorCategoria@guardar');
 /* --------------------------------------------- */
 Route::get('/admin/pedidos', 'ControladorPedido@index');
 Route::get('/admin/pedidos/cargarGrilla', 'ControladorPedido@cargarGrilla')->name('pedido.cargarGrilla');
+Route::get('/admin/pedidos/ver-pedido/{id}', 'ControladorPedido@editar');
+Route::post('/admin/pedidos/ver-pedido/{id}', 'ControladorPedido@guardar');

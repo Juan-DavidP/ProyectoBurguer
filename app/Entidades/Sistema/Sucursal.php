@@ -30,12 +30,15 @@ class Sucursal extends Model
     public function obtenerTodos()
     {
         $sql = "SELECT 
-        idsucursal, 
-        telefono, 
-        nombre, 
-        direccion, 
-        fk_idestadosucursal,
-        mapa FROM sucursales";
+        S.idsucursal, 
+        S.telefono, 
+        S.nombre, 
+        S.direccion, 
+        S.fk_idestadosucursal,
+        S.mapa,
+        E.nombre AS estado_sucursal
+         FROM sucursales S
+         INNER JOIN estados_sucursales E ON E.idestadosucursal = S.fk_idestadosucursal";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }
@@ -124,8 +127,10 @@ class Sucursal extends Model
                     A.telefono,
                     A.direccion,
                     A.fk_idestadosucursal,
-                    A.mapa
+                    A.mapa,
+                    E.nombre AS estado_sucursal
                 FROM sucursales A
+                INNER JOIN estados_sucursales E ON E.idestadosucursal = A.fk_idestadosucursal
                 WHERE 1=1
                 ";
 

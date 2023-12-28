@@ -18,7 +18,7 @@ class ControladorSucursal extends Controller
         $estado = new EstadoSucursal();
         $aEstados = $estado->obtenerTodos();
 
-        return view('sistema.sucursal-nuevo', compact('titulo','sucursal', 'aEstados'));
+        return view('sistema.sucursal-nuevo', compact('titulo', 'sucursal', 'aEstados'));
     }
 
     public function index()
@@ -41,7 +41,8 @@ class ControladorSucursal extends Controller
                 $msg["MSG"] = "Complete todos los datos";
 
                 $sucursal = new Sucursal();
-                $sucursal->obtenerPorId($entidad->idsucursal);
+                $sucursal->obtenerPorId($entidad->idsucursal);   
+
                 $estado = new EstadoSucursal();
                 $aEstados = $estado->obtenerTodos();
 
@@ -78,9 +79,6 @@ class ControladorSucursal extends Controller
         $entidad = new Sucursal();
         $aSucursales = $entidad->obtenerFiltrado();
 
-        $estadoSucursales = new EstadoSucursal();
-        $aEstados = $estadoSucursales->obtenerTodos();
-
         $data = array();
         $cont = 0;
         $inicio = $request['start'];
@@ -92,13 +90,7 @@ class ControladorSucursal extends Controller
             $row[] = $aSucursales[$i]->nombre;
             $row[] = $aSucursales[$i]->telefono;
             $row[] = $aSucursales[$i]->direccion;
-            // $row[] = $aSucursales[$i]->fk_idestadosucursal;
-            foreach ($aEstados as $estado) {
-                if ($aSucursales[$i]->fk_idestadosucursal == $estado->idestadosucursal) {
-                    $row[]= $estado->nombre;
-                }
-            }
-            
+            $row[] = $aSucursales[$i]->estado_sucursal;
             $row[] = $aSucursales[$i]->mapa;
             $cont++;
             $data[] = $row;
@@ -113,15 +105,15 @@ class ControladorSucursal extends Controller
         return json_encode($json_data);
     }
 
-    public function editar($id){
+    public function editar($id)
+    {
         $titulo = "Edición de sucursal";
         $sucursal = new Sucursal();
         $sucursal->obtenerPorId($id);
 
-
         $estado = new EstadoSucursal();
         $aEstados = $estado->obtenerTodos();
 
-        return view('sistema.sucursal-nuevo', compact('titulo','sucursal', 'aEstados'));
+        return view('sistema.sucursal-nuevo', compact('titulo', 'sucursal', 'aEstados'));
     }
 }
