@@ -1,6 +1,4 @@
 @extends("web.plantilla")
-
-
 @section('contenido')
 
 <!-- Page Header Start -->
@@ -22,35 +20,22 @@
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                               <div class="form-group col-lg-6 mb-3">
                                     <label>Usuario:</label>
-                                    <input type="text" id="txtUsuario" name="txtUsuario" class="form-control" required value="{{ $cliente->nombre }}">
+                                    <input type="text" id="txtUsuario" name="txtUsuario" class="form-control" required value="">
                               </div>
                               <div class="form-group col-lg-6 mb-3">
                                     <label>Clave:</label>
-                                    <input type="email" id="txtClave" name="txtClave" class="form-control" required value="{{ $cliente->correo }}">
+                                    <input type="email" id="txtClave" name="txtClave" class="form-control" required value="">
                               </div>
                               <div class="form-group col-12 d-flex justify-content-center mb-4">
                                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Ingresar</button>
                               </div>
+                              <a href="">Olvidaste la clave?</a>
+                              <a href="">No tenes cuenta? Registrate</a>
                         </div>
                   </form>
             </div>
 
-            <div class="heading_container mb-5">
-                  <h2>Pedidos Activos</h2>
-            </div>
-            <table id="grilla" class="display table table-bordered table-hover">
-                  <thead>
-                        <tr>
-                              <th>Fecha</th>
-                              <th>Producto</th>
-                              <th>Sucursal</th>
-                              <th>Estado</th>
-                              <th>Total</th>
-                              <th>Metodo de Pago</th>
-                        </tr>
-                  </thead>
-            </table>
-            
+           
       </div>
 </div>
 
