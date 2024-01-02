@@ -52,22 +52,22 @@
                                     <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nuevo</div>
                                 </div>
                                 <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href=""><?php echo $producto->nombre; ?></a>
+                                    <a class="d-block h5 mb-2"><?php echo $producto->nombre; ?></a>
                                     <span class="text-primary me-1">$<?php echo number_format($producto->precio, 2, ",", "."); ?></span>
                                 </div>
                                 <div class="d-flex border-top">
                                     <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body" href=""><?php echo $producto->descripcion; ?></a>
+                                        <a class="text-body"><?php echo $producto->descripcion; ?></a>
                                     </small>
                                     <small class="w-50 text-center py-2">
-                                        <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito </a>
+                                        <a class="text-body"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito </a>
                                     </small>
                                 </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                     <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Explorar más productos</a>
+                        <a class="btn btn-primary rounded-pill py-3 px-5">Explorar más productos</a>
                     </div>
                 </div>
             </div>
