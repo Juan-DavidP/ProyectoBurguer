@@ -18,24 +18,22 @@
                   <form id="form1" action="POST" class="mb-4">
                         <div class="row">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              <div class="form-group col-lg-6 mb-3">
+                              <!-- <div class="form-group col-lg-6 mb-3">
                                     <label>Usuario:</label>
                                     <input type="text" id="txtUsuario" name="txtUsuario" class="form-control" required value="">
-                              </div>
+                              </div> -->
                               <div class="form-group col-lg-6 mb-3">
-                                    <label>Clave:</label>
-                                    <input type="email" id="txtClave" name="txtClave" class="form-control" required value="">
+                                    <label>Correo:</label>
+                                    <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required value="">
                               </div>
                               <div class="form-group col-12 d-flex justify-content-center mb-4">
-                                    <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Ingresar</button>
+                                    <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Recuperar</button>
                               </div>
-                              <a href="recuperar-contraseña">Olvidaste la clave?</a>
-                              <a href="registro">No tenes cuenta? Registrate</a>
+                              <a href="/login">Ingresar a tu cuenta</a>
+                              <a href="">No tenes cuenta? Registrate</a>
                         </div>
                   </form>
             </div>
-
-           
       </div>
 </div>
 
