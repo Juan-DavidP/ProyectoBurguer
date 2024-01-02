@@ -2,8 +2,8 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-    globalId = '<?php echo isset($postulacion->idpostulacion) && $postulacion->idpostulacion > 0 ? $postulacion->idpostulacion : 0; ?>';
-    <?php $globalId = isset($postulacion->idpostulacion) ? $postulacion->idpostulacion : "0";?>
+	globalId = '<?php echo isset($postulacion->idpostulacion) && $postulacion->idpostulacion > 0 ? $postulacion->idpostulacion : 0; ?>';
+	<?php $globalId = isset($postulacion->idpostulacion) ? $postulacion->idpostulacion : "0"; ?>
 </script>
 @endsection
 @section('breadcrumb')
@@ -63,13 +63,13 @@
 			</div>
 			<div class="form-group col-lg-12">
 				<label>Curriculum: *</label>
-				<input type="file" id="cv" name="cv" class="form-control-file" accept=".pdf, .doc, .docx, .txt" <?php echo $postulacion->idpostulacion > 0? "" : "required";?>>
+				<input type="file" id="cv" name="cv" class="form-control-file" accept=".pdf, .doc, .docx, .txt" <?php echo $postulacion->idpostulacion > 0 ? "" : "required"; ?>>
 				<small class="d-block">Archivos admitidos: PDF, DOC, DOCX, TXT</small>
 			</div>
 		</div>
-</div>
-</div>
-</form>
+
+
+	</form>
 </div>
 <script>
 	function guardar() {

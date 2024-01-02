@@ -63,7 +63,7 @@
                   </div>
                   <div class="form-group col-lg-12">
                         <label>Descripción: *</label>
-                        <textarea id="txtDescripcion" name="txtDescripcion" class="form-control" required">{{ $producto->descripcion }}</textarea>
+                        <textarea id="txtDescripcion" name="txtDescripcion" class="form-control" required="">{{ $producto->descripcion }}</textarea>
                         <script>
                               ClassicEditor
                                     .create(document.querySelector("#txtDescripcion"))
