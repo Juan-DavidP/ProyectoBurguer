@@ -38,7 +38,9 @@
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="col-lg-12 ">
-                        <label class="form-control">Pedido # <?php echo $pedido->idpedido ?> </label>
+                        @foreach ($aProductosPedido as $producto)
+                        <label class="form-control">Pedido # <?php echo $producto->idproductopedido ?> </label>
+                        @endforeach
                   </div>
                   <div class="form-group col-lg-6">
                         <label> Cliente:</label>
@@ -68,7 +70,7 @@
                   </div>
                   <div class="col-lg-6 form-group">
                         <label>Comentarios:</label>
-                        <textarea name="txtComentarios" id="txtComentarios" class="form-control" disabled  style="height:100px !important">
+                        <textarea name="txtComentarios" id="txtComentarios" class="form-control" disabled style="height:100px !important">
                               <?php echo $pedido->comentario ?>
                         </textarea>
                   </div>
@@ -115,7 +117,7 @@
                         </tbody>
                         <tfoot>
                               <td colspan="5" class="text-right h3">Total:</td>
-                              <td><?php echo number_format($total,"0", ",","."); ?></td>
+                              <td><?php echo number_format($total, "0", ",", "."); ?></td>
                         </tfoot>
                   </table>
 
