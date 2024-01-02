@@ -72,7 +72,9 @@
                                 <a class="text-body"><?php echo $sucursal->estado_sucursal; ?></a>
                             </small>
                             <small class="w-50 text-center py-2">
-                                <a class="text-body"><i class="fa fa-solid fa-map text-primary me-2"></i>Mapa</a>
+                                <a class="text-body" href="<?php echo $sucursal->mapa; ?>" target="_blank">
+                                    <i class="fa fa-solid fa-map text-primary me-2"></i>Mapa
+                                </a>
                             </small>
                         </div>
                     </div>
