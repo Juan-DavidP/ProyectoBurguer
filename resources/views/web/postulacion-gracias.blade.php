@@ -9,12 +9,12 @@
     </div>
 </div>
 <!-- Page Header End -->
-    <div>
-        <h1>¡Gracias por tu postulación!</h1>
-        <p>Pronto estará recibiendo noticias nuestras.</p>
+<div class="container-xxl py-5">
+    <div class="container text-center">
+        <h1 class="display-4">¡Gracias por tu postulación!</h1>
+        <p class="lead">Pronto estará recibiendo noticias nuestras.</p>
 
-        <!-- Puedes personalizar más el diseño y agregar estilos según tus preferencias -->
-
-        <a href="">Volver a la página principal</a>
+        <a href="{{ url('/') }}" class="btn btn-primary mt-3">Volver a la página principal</a>
     </div>
+</div>
 @endsection
