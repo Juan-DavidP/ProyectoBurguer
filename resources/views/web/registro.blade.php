@@ -18,7 +18,6 @@
                   <form id="form1" method="POST" class="mb-4">
                          <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                         <div class="row">
-                              <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
                               <div class="form-group col-lg-6 mb-3">
                                     <label>Nombre:</label>
                                     <input type="text" id="txtNombre" name="txtNombre" class="form-control" required>
