@@ -36,6 +36,7 @@ if (isset($msg)) {
             <th>Teléfono</th>
             <th>Dirección</th>
             <th>Correo</th>
+            <th>Cv</th>
         </tr>
     </thead>
 </table>
