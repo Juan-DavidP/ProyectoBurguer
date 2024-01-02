@@ -173,4 +173,23 @@ class Cliente extends Model
         return $lstRetorno;
 
     }
+
+    public function verificarExistenciaMail($mail){
+        $sql = "SELECT 
+            count (A.idcliente) as cantidad
+            FROM clientes A 
+            WHERE A.correo = '$mail'"; 
+
+        $lstRetorno = DB::select($sql);
+        return $lstRetorno[0]->cantidad > 0;
+    }
+
+    public function encriptarClave($clave){
+        $claveEncriptada = password_hash($clave, PASSWORD_DEFAULT);
+        return $claveEncriptada;
+    }
+
+    public function validarClave($claveIngresada, $claveBBDD){
+        return password_verify($claveIngresada, $claveBBDD);
+    }
 }
