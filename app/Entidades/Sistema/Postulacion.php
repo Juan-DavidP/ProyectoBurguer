@@ -132,7 +132,8 @@ class Postulacion extends Model
                     A.apellido,
                     A.telefono,
                     A.direccion,
-                    A.correo
+                    A.correo,
+                    A.curriculum
                 FROM postulaciones A
                 WHERE 1=1
                 ";
