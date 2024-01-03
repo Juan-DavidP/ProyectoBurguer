@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Entidades\Sistema\Producto;
 use App\Entidades\Sistema\Categoria;
+use Session;
 
 class ControladorWebTakeaway extends Controller
 {
@@ -19,6 +21,13 @@ class ControladorWebTakeaway extends Controller
 
         // Pasa las variables a la vista
         return view("web.takeaway", compact('aCategorias', 'aProductos'));
+    }
+
+    public function agregarCarrito(Request $request){
+        $idCliente = Session::get("idcliente");
+        print_r($idCliente);
+
+
     }
 }
 
