@@ -29,7 +29,7 @@
                                     <a href="recuperar-contraseña">¿Olvidaste la clave?</a>
                               </div>
                               <div class="text-center">
-                                    <a href="registro">No tenes cuenta? Registrate</a>
+                                    <a href="registro">¿No tenes cuenta? Registrate</a>
                               </div>
                         </div>
                   </form>
