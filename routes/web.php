@@ -18,6 +18,7 @@ Route::group(array('domain' => '127.0.0.1'), function () {
 
     Route::get('/', 'ControladorWebHome@index');
     Route::get('/takeaway', 'ControladorWebTakeaway@index');
+    Route::post('/takeaway', 'ControladorWebTakeaway@agregarCarrito');
     Route::get('/contacto', 'ControladorWebContacto@index');
     Route::get('/nosotros', 'ControladorWebNosotros@index');
     Route::get('/nosotros', 'ControladorWebPostulacion@index');
@@ -25,6 +26,7 @@ Route::group(array('domain' => '127.0.0.1'), function () {
     Route::post('/nosotros', 'ControladorWebPostulacion@guardarPostulacion');
     Route::get('/mi-cuenta', 'ControladorWebMiCuenta@index');
     Route::get('/login', 'ControladorWebLogin@index');
+    Route::post('/login', 'ControladorWebLogin@ingresar');
     Route::get('/recuperar-contraseña', 'ControladorWebRecuperarClave@index');
     Route::get('/registro', 'ControladorWebRegistro@index');
     Route::post('/registro', 'ControladorWebRegistro@registrar');

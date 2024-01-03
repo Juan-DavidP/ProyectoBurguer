@@ -67,6 +67,31 @@ class Cliente extends Model
         }
         return null;
     }
+    public function obtenerPorCorreo($correo)
+    {
+        $sql = "SELECT
+                  idcliente,
+                  nombre,
+                  apellido,
+                  correo,
+                  telefono,
+                  dni,
+                  clave
+                FROM clientes WHERE idcliente = $correo";
+        $lstRetorno = DB::select($sql);
+
+        if (count($lstRetorno) > 0) {
+            $this->idcliente = $lstRetorno[0]->idcliente;
+            $this->nombre = $lstRetorno[0]->nombre;
+            $this->apellido = $lstRetorno[0]->apellido;
+            $this->correo = $lstRetorno[0]->correo;
+            $this->telefono = $lstRetorno[0]->telefono;
+            $this->dni = $lstRetorno[0]->dni;
+            $this->clave = $lstRetorno[0]->clave;
+            return $this;
+        }
+        return null;
+    }
 
     public function guardar()
     {
