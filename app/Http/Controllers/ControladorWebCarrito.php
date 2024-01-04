@@ -9,8 +9,12 @@ class ControladorWebCarrito extends Controller
 {
       public function index()
       {
-            $carrito = new Carrito();
-            $aProductos = $carrito->obtenerPorCarrito(Session::get('idcliente'));
-            return view("web.carrito", compact('aProductos'));
+            if (Session::get('idcliente') > 0) {
+                  $carrito = new Carrito();
+                  $aProductos = $carrito->obtenerPorCarrito(Session::get('idcliente'));
+                  return view("web.carrito", compact('aProductos'));
+            } else {
+                  return redirect('/login');
+            }
       }
 }
