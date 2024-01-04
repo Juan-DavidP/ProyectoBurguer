@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -14,7 +14,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -79,6 +79,12 @@
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="/carrito">
                         <small class="fa fa-shopping-bag text-body"></small>
                     </a>
+                    <?php
+                    if (Session::get('idcliente') != "") : ?>
+                        <a class="btn-sm-square bg-white rounded-circle ms-3" href="/logout">
+                            <i class="fa fa-arrow-left" style="color: #494949;"></i></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>
@@ -86,7 +92,7 @@
     <!-- Navbar End -->
 
 
-  @yield('contenido')
+    @yield('contenido')
 
 
     <!-- Footer Start -->

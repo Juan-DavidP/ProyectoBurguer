@@ -24,7 +24,7 @@ class ControladorWebRecuperarClave extends Controller
             // echo str_shuffle("hola");
             // echo rand(1, 2000);
             $claveNueva = bin2hex(random_bytes(4));
-            $cliente->recuperarContraseña($correo, $claveNueva);
+            $cliente->recuperarContraseña($correo, password_hash($claveNueva, PASSWORD_DEFAULT));
             return view('web.clave-nueva', compact('claveNueva'));
         } else {
             $msg = "El correo ingresado no esta asociado a ninguna cuenta";
