@@ -125,6 +125,7 @@ class Postulacion extends Model
             3 => 'A.telefono',
             4 => 'A.direccion',
             5 => 'A.correo',
+            6 => 'A.curriculum',
         );
         $sql = "SELECT DISTINCT
                     A.idpostulacion,
@@ -145,6 +146,7 @@ class Postulacion extends Model
             $sql .= " OR A.telefono LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.direccion LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.correo LIKE '%" . $request['search']['value'] . "%' )";
+            $sql .= " OR A.curriculum LIKE '%" . $request['search']['value'] . "%' )";
         }
         $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
 

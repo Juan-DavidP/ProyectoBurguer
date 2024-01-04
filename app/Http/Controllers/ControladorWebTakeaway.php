@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 
 use App\Entidades\Sistema\Producto;
 use App\Entidades\Sistema\Categoria;
+use App\Entidades\Sistema\Cliente;
+
 use Session;
 
 class ControladorWebTakeaway extends Controller
@@ -25,9 +27,23 @@ class ControladorWebTakeaway extends Controller
 
     public function agregarCarrito(Request $request){
         $idCliente = Session::get("idcliente");
-        print_r($idCliente);
-
-
+    
+        
+        if ($idCliente && $idCliente > 0) {
+            $cliente = new Cliente();
+            $cliente->obtenerPorId($idCliente);
+    
+            
+            $productoId = 1;
+            $cliente->agregarAlCarrito($productoId);
+    
+            return view("", compact("cliente"));
+        } else {
+            
+            return redirect("/login");
+        }
     }
+    
+    
 }
 
