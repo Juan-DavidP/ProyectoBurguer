@@ -30,13 +30,13 @@
                     <li class="nav-item me-2">
                         <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill" data-filter="*">Todos</a>
                     </li>
-                    <?php foreach ($aCategorias as $categoria): ?>
+                    <?php foreach ($aCategorias as $categoria) : ?>
                         <li class="nav-item me-2">
                             <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-<?php echo $categoria->idcategoria; ?>">
                                 <?php echo $categoria->nombre; ?>
                             </a>
                         </li>
-                    <?php endforeach;?>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
@@ -44,34 +44,36 @@
         <div class="tab-content">
             <div class="tab-pane fade show p-0 active">
                 <div class="row g-4">
-                    <?php foreach ($aProductos as $producto): ?>
-
+                    <?php foreach ($aProductos as $producto) : ?>
                         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                         <form method="POST">
-                        <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    <img class="img-fluid w-100" src="/files/<?php echo $producto->imagen; ?>">
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nuevo</div>
+                            <form method="POST">
+                                <div class="product-item card mb-4">
+                                    <div class="position-relative bg-light overflow-hidden">
+                                        <img class="img-fluid card-img-top" src="/files/<?php echo $producto->imagen; ?>" alt="<?php echo $producto->nombre; ?>">
+                                        <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Nuevo</div>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <a class="card-title h5 mb-2"><?php echo $producto->nombre; ?></a>
+                                        <p class="card-text text-primary">$<?php echo number_format($producto->precio, 2, ",", "."); ?></p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between">
+                                        <div class="w-50 text-center border-end py-2">
+                                            <p class="card-text text-body"><?php echo $producto->descripcion; ?></p>
+                                        </div>
+                                        <div class="w-50 text-center py-2">
+                                            <input type="text" class="form-control mb-2" id="txtIdProducto" name="txtIdProducto" value="<?php echo $producto->idproducto; ?>" hidden>
+                                            <label for="txtCantidad" class="visually-hidden">Cantidad</label>
+                                            <input type="number" class="form-control mb-2" id="txtCantidad" name="txtCantidad" value="0" min="0">
+                                            <button class="btn btn-primary" type="submit" name="btnAgregarCarrito">
+                                                <i class="fa fa-shopping-bag me-2"></i>Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2"><?php echo $producto->nombre; ?></a>
-                                    <span class="text-primary me-1">$<?php echo number_format($producto->precio, 2, ",", "."); ?></span>
-                                </div>
-                                <div class="d-flex border-top">
-                                    <small class="w-50 text-center border-end py-2">
-                                        <a class="text-body"><?php echo $producto->descripcion; ?></a>
-                                    </small>
-                                    <small class="w-50 text-center py-2">
-                                         <input type="text" id="txtIdProducto" name="txtIdProducto" value="<?php echo $producto->idproducto; ?>">
-                                         <input type="number" id="txtCantidad" name="txtCantidad" value="0">
-                                        <button class="text-body" type="submit" name="btnAgregarCarrito"><i class="fa fa-shopping-bag text-primary me-2"></i>Añadir al carrito </button>
-                                    </small>
-                                </div>
-                            </div>
-                                   </form>
+                            </form>
                         </div>
+                    <?php endforeach; ?>
 
-                    <?php endforeach;?>
                     <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
                         <a class="btn btn-primary rounded-pill py-3 px-5">Explorar más productos</a>
                     </div>
