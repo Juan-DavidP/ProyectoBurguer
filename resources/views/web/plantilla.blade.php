@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -79,9 +79,12 @@
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="/carrito">
                         <small class="fa fa-shopping-bag text-body"></small>
                     </a>
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="/logout">
-                    <i class="fa fa-arrow-left" style="color: #494949;"></i></i>
-                    </a>
+                    <?php
+                    if (Session::get('idcliente') != "") : ?>
+                        <a class="btn-sm-square bg-white rounded-circle ms-3" href="/logout">
+                            <i class="fa fa-arrow-left" style="color: #494949;"></i></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>

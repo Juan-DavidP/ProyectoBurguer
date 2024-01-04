@@ -21,18 +21,15 @@ class ControladorWebLogin extends Controller
 
         $cliente = new Cliente();
         if ($cliente->obtenerPorCorreo($correo)) {
-
-
-             if (password_verify($clave, $cliente->clave)) {
-            
-                 Session::put("idcliente", $cliente->idcliente);
-                 return redirect("/mi-cuenta");
-         } else {
-             $msg = "Credenciales incorrectas";
-             }
-         } else {
-             $msg = "Credenciales incorrectas";
-         }
-         return view(compact("msg"));
+            if (password_verify($clave, $cliente->clave)) {
+                Session::put("idcliente", $cliente->idcliente);
+                return redirect("/mi-cuenta");
+            } else {
+                $msg = "Credenciales incorrectas";
+            }
+        } else {
+            $msg = "Credenciales incorrectas";
+        }
+        return view('web.login',compact("msg"));
     }
 }
