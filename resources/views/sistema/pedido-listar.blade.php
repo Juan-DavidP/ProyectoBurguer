@@ -25,8 +25,7 @@ if (isset($msg)) {
     echo '<div id = "msg"></div>';
     echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
 }
-$pedido = new Pedido();
-$pedidos= $pedido->obtenerTodos();
+
 ?>
 <table id="grilla" class="display table table-bordered table-hover">
     <thead>

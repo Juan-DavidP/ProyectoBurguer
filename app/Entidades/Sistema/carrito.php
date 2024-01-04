@@ -41,4 +41,8 @@ class Carrito extends Model
             }
             return null;
       }
+
+      public function agregarAlCarrito($idCliente, $idProducto, $cantidad){
+            
+      }
 }
