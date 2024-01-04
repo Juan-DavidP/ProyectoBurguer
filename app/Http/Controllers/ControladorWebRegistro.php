@@ -14,12 +14,9 @@ class ControladorWebRegistro extends Controller
         return view("web.registro");
     }
 
-
     public function registrar(Request $request)
     {
         if ($request->input('txtClave') ==  $request->input('txtRepetirClave')) {
-            echo "iguales";
-            exit;
             $cliente = new Cliente();
             $cliente->nombre = $request->input('txtNombre');
             $cliente->apellido = $request->input('txtApellido');
@@ -32,9 +29,8 @@ class ControladorWebRegistro extends Controller
                 return redirect("/login");
             }
         } else {
-            echo "diferentes";
-            exit;
             $msg = "Las contraseñas no coinciden";
+            return view('web.registro', compact("msg"));
         }
     }
 }

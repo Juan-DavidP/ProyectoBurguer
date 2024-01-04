@@ -22,11 +22,11 @@
                                     <label class="mb-2">Correo:</label>
                                     <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required value="">
                               </div>
-                              <?php if (isset($msg)): ?>
+                              @if(isset($msg))
                               <div class="alert-danger mb-3">
-                                    <p class="text-center pt-3"><?php  echo $msg; ?></p>
+                                    <p class="text-center pt-3"><?php echo $msg; ?></p>
                               </div>
-                              <?php endif; ?>
+                              @endif
                               <div class="form-group col-12 d-flex justify-content-center mb-4">
                                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Recuperar</button>
                               </div>
