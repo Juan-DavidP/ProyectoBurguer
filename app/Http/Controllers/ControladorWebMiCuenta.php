@@ -23,12 +23,15 @@ class ControladorWebMiCuenta extends Controller
 
     public function guardar(Request $request)
     {
+        $nombre = $request->input("txtNombre");
+        
         if (Session::get("idcliente") && Session::get("idcliente") > 0) {
             $idCliente = Session::get("idcliente");
 
             // Obtener el cliente existente
             $cliente = new Cliente();
             $cliente->obtenerPorId($idCliente);
+            $cliente->nombre = $nombre;
             $cliente->guardar();
 
             return view("web.mi-cuenta", compact("cliente"));
