@@ -14,21 +14,21 @@ class Carrito extends Model
 
       protected $hidden = [];
 
-      public function obtenerPorCarrito()
+      public function obtenerPorCarrito($idcliente)
       {
-            $sql = "SELECT 
-            C.idcarritoproducto,
-            C.fk_idcarrito,
-            C.fk_idproducto,
-            C.cantidad ,
-            P.idproducto,
-            P.nombre,
-            P.descripcion,
+            $sql = " SELECT 
+            C.idcarrito,
+            CP.cantidad,
+            Cl.nombre,
             P.imagen,
-            P.precio
-            FROM carritos_productos C
-            INNER JOIN productos p ON C.fk_idproducto = P.idproducto 
-            WHERE fk_idcarrito= 1;";
+            P.precio,
+            P.descripcion 
+            from carritos C
+            INNER JOIN carritos_productos CP ON  C.idcarrito  = CP.fk_idcarrito
+            INNER JOIN clientes CL ON C.fk_idcliente = CL.idcliente
+            INNER JOIN productos P ON CP.fk_idproducto = P.idproducto 
+            WHERE CL.idcliente = $idcliente
+           ;";
             $lstRetorno = DB::select($sql);
             return $lstRetorno;
 

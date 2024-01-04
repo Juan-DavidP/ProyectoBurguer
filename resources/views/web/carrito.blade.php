@@ -29,14 +29,14 @@
                                           <td><?php echo $producto->cantidad ?></td>
                                           <td></td>
                                           <td><?php echo $producto->descripcion ?></td>
-                                          <td><?php echo $producto->precio ?></td>
+                                          <td><?php echo number_format($producto->precio, 0, ",", ".") ?></td>
                                           <?php $total += $producto->cantidad * $producto->precio; ?>
                                     </tr>
                                     @endforeach
                               </tbody>
                               <tfoot>
                                     <td colspan="5" class="text-right h3">Total:</td>
-                                    <td><?php echo number_format($total, "0", ",", "."); ?></td>
+                                    <td><?php echo number_format($total, 0, ",", "."); ?></td>
                               </tfoot>
                         </table>
 
