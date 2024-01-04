@@ -69,15 +69,15 @@ class Cliente extends Model
     }
     public function obtenerPorCorreo($correo)
     {
-        $sql = "SELECT
-                  idcliente,
-                  nombre,
-                  apellido,
-                  correo,
-                  telefono,
-                  dni,
-                  clave
-                FROM clientes WHERE idcliente = $correo";
+        $sql = "SELECT 
+            idcliente,
+            nombre, 
+            apellido,
+            correo,
+            telefono,
+            dni,
+            clave
+        FROM clientes where correo  = '$correo'";
         $lstRetorno = DB::select($sql);
 
         if (count($lstRetorno) > 0) {
@@ -113,7 +113,6 @@ class Cliente extends Model
                 $this->clave,
                 $this->idcliente,
             ]);
-
         } else {
             $sql = "UPDATE clientes SET
             nombre=?,
@@ -196,25 +195,27 @@ class Cliente extends Model
         $lstRetorno = DB::select($sql);
 
         return $lstRetorno;
-
     }
 
-    public function verificarExistenciaMail($mail){
+    public function verificarExistenciaMail($mail)
+    {
         $sql = "SELECT 
             count (A.idcliente) as cantidad
             FROM clientes A 
-            WHERE A.correo = '$mail'"; 
+            WHERE A.correo = '$mail'";
 
         $lstRetorno = DB::select($sql);
         return $lstRetorno[0]->cantidad > 0;
     }
 
-    public function encriptarClave($clave){
+    public function encriptarClave($clave)
+    {
         $claveEncriptada = password_hash($clave, PASSWORD_DEFAULT);
         return $claveEncriptada;
     }
 
-    public function validarClave($claveIngresada, $claveBBDD){
+    public function validarClave($claveIngresada, $claveBBDD)
+    {
         return password_verify($claveIngresada, $claveBBDD);
     }
 }
