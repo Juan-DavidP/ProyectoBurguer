@@ -16,21 +16,23 @@ class ControladorWebLogin extends Controller
 
     public function ingresar(Request $request)
     {
-        // $correo = $request->input("txtCorreo");
-        // $clave = $request->input("txtClave");
-        // $cliente = new Cliente();
-        return redirect('/mi-cuenta');
+        $correo = $request->input("txtCorreo");
+        $clave = trim($request->input("txtClave"));
+
+        $cliente = new Cliente();
+        if ($cliente->obtenerPorCorreo($correo)) {
 
 
-        // if ($cliente->obtenerPorCorreo($correo)) {
-        //     if (password_verify($clave, $cliente->clave)) {
-        //         Session::put("correo", $cliente->correo);
-        //         return redirect("/mi-cuenta");
-        //     } else {
-        //         $msg = "Credenciales incorrectas";
-        //     }
-        // } else {
-        //     $msg = "Credenciales incorrectas";
-        // }
+             if (password_verify($clave, $cliente->clave)) {
+            
+                 Session::put("idcliente", $cliente->idcliente);
+                 return redirect("/mi-cuenta");
+         } else {
+             $msg = "Credenciales incorrectas";
+             }
+         } else {
+             $msg = "Credenciales incorrectas";
+         }
+         return view(compact("msg"));
     }
 }

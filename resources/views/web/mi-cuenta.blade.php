@@ -17,7 +17,7 @@
                   <h2>Datos del usuario</h2>
             </div>
             <div class="form_container mb-4">
-                  <form id="form1" action="POST" class="mb-4">
+                  <form id="form1" method="POST" class="mb-4">
                         <div class="row">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                               <div class="form-group col-lg-6 mb-3">

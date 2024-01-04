@@ -12,6 +12,13 @@
             </div>
             <div class="form_container mb-4">
                   <form id="form1" method="POST" class="mb-4">
+                        @if(isset($msg))
+                        <div class="row">
+                              <div class="col-12">
+                                    {{$msg}}
+                              </div>
+                        </div>
+                        @endif
                         <div class="row">
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                               <div class="form-group offset-3 col-lg-6 mb-3">
@@ -20,7 +27,7 @@
                               </div>
                               <div class="form-group offset-3  col-lg-6 mb-3">
                                     <label>Clave:</label>
-                                    <input type="text" id="txtClave" name="txtClave" class="form-control" required value="">
+                                    <input type="password" id="txtClave" name="txtClave" class="form-control" required value="">
                               </div>
                               <div class="form-group col-12 d-flex justify-content-center mb-4">
                                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Ingresar</button>

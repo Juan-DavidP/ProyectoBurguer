@@ -33,6 +33,7 @@ Route::group(array('domain' => '127.0.0.1'), function () {
     Route::post('/recuperar-contraseña', 'ControladorWebRecuperarClave@recuperarClave');
     Route::get('/clave-nueva', 'ControladorWebRecuperarClave@recuperarClave');
     Route::get('/carrito', 'ControladorWebCarrito@index');
+    Route::get('/logout', 'ControladorWebLogout@salir');
     
     
  
