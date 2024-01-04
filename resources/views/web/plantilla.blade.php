@@ -76,7 +76,7 @@
                     <a class="btn-sm-square bg-white rounded-circle ms-3" href="/mi-cuenta">
                         <small class="fa fa-user text-body"></small>
                     </a>
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="/carrito">
                         <small class="fa fa-shopping-bag text-body"></small>
                     </a>
                 </div>

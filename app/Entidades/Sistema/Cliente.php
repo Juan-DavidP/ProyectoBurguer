@@ -200,12 +200,27 @@ class Cliente extends Model
     public function verificarExistenciaMail($mail)
     {
         $sql = "SELECT 
-            count (A.idcliente) as cantidad
+            count(A.idcliente) as cantidad
             FROM clientes A 
             WHERE A.correo = '$mail'";
 
         $lstRetorno = DB::select($sql);
         return $lstRetorno[0]->cantidad > 0;
+    }
+
+    public function recuperarContraseña($correo, $nueva)
+    {
+        $sql = "UPDATE clientes SET 
+        clave = ?
+        WHERE correo = '$correo'";
+        $affected = DB::update($sql, [$nueva]);
+    }
+
+    public function mostrarClave($correo)
+    {
+        $sql = "SELECT 
+            clave 
+            FROM clientes Where correo = '$correo'";
     }
 
     public function encriptarClave($clave)

@@ -124,9 +124,6 @@
             </div>
       </div>
 </div>
-<?php // echo $producto->imagen 
-?>
-
 <script>
       function guardar() {
             if ($("#form1").valid()) {
