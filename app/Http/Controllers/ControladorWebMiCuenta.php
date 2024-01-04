@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Entidades\Sistema\Cliente;
+use App\Entidades\Sistema\Pedido;
 use Session;
 
 class ControladorWebMiCuenta extends Controller
@@ -15,7 +16,13 @@ class ControladorWebMiCuenta extends Controller
             $idCliente = Session::get("idcliente");
             $cliente = new Cliente();
             $cliente->obtenerPorId($idCliente);
-            return view("web.mi-cuenta", compact("cliente"));
+
+            // Crea una instancia de la clase Pedido
+            $pedido = new Pedido();
+            // Obtén todos los pedidos
+            $aPedidos = $pedido->obtenerTodos();
+
+            return view("web.mi-cuenta", compact("cliente", "aPedidos"));
         } else {
             return redirect("/login");
         }
