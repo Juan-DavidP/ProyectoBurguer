@@ -39,10 +39,20 @@
                                     <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required>
                               </div>
                               <div class="form-group col-lg-6 mb-3">
+                                    <label>Repetir contraseña:</label>
+                                    <input type="password" id="txtRepetirClave" name="txtRepetirClave" class="form-control" required>
+                              </div>
+                              <div id="msg"></div>
+                              <?php
+                              if (isset($msg)) {
+                                    echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
+                              }
+                              ?>
+                              <div class="form-group col-lg-6 mb-3">
                                     <label>DNI:</label>
                                     <input type="text" id="txtDni" name="txtDni" class="form-control" required>
                               </div>
-                              <div class="form-group col-12 d-flex justify-content-center mb-4">
+                              <div class="form-group col-12 d-flex justify-content-center mt-2">
                                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Registrar</button>
                               </div>
                               <a href="/login">Ingresar a tu cuenta</a>
