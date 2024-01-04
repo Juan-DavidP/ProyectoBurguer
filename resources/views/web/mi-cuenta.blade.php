@@ -54,11 +54,24 @@
                               <th>Sucursal</th>
                               <th>Estado</th>
                               <th>Total</th>
-                              <th>Metodo de Pago</th>
+                              <th>Método de Pago</th>
                         </tr>
                   </thead>
+                  <tbody>
+                        <?php foreach ($aPedidos as $pedido) : ?>
+                              <tr>
+                                    <td><?= $pedido->fecha ?></td>
+                                    <td><?= $pedido->total ?></td>
+                                    <td><?= $pedido->fk_idsucursal ?></td>
+                                    <td><?= $pedido->fk_idestado ?></td>
+                                    <td><?= $pedido->total ?></td>
+                                    <td><?= $pedido->metodo_pago ?></td>
+                              </tr>
+                        <?php endforeach; ?>
+                  </tbody>
             </table>
-            
+
+
       </div>
 </div>
 
