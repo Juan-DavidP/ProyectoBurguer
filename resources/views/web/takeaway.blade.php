@@ -47,6 +47,7 @@
                     <?php foreach ($aProductos as $producto) : ?>
                         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <form method="POST">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                                 <div class="product-item card mb-4">
                                     <div class="position-relative bg-light overflow-hidden">
                                         <img class="img-fluid card-img-top" src="/files/<?php echo $producto->imagen; ?>" alt="<?php echo $producto->nombre; ?>">
@@ -61,7 +62,7 @@
                                             <p class="card-text text-body"><?php echo $producto->descripcion; ?></p>
                                         </div>
                                         <div class="w-50 text-center py-2">
-                                            <input type="text" class="form-control mb-2" id="txtIdProducto" name="txtIdProducto" value="<?php echo $producto->idproducto; ?>" hidden>
+                                            <input type="hidden" class="form-control mb-2" id="txtIdProducto" name="txtIdProducto" value="<?php echo $producto->idproducto; ?>">
                                             <label for="txtCantidad" class="visually-hidden">Cantidad</label>
                                             <input type="number" class="form-control mb-2" id="txtCantidad" name="txtCantidad" value="0" min="0">
                                             <button class="btn btn-primary" type="submit" name="btnAgregarCarrito">
