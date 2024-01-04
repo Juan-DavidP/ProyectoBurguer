@@ -1,5 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 
 use App\Entidades\Sistema\Cliente;
 use Session;
@@ -8,7 +11,7 @@ class ControladorWebMiCuenta extends Controller
 {
     public function index()
     {
-        if(Session::get("idcliente") && Session::get("idcliente") > 0){
+        if (Session::get("idcliente") && Session::get("idcliente") > 0) {
             $idCliente = Session::get("idcliente");
             $cliente = new Cliente();
             $cliente->obtenerPorId($idCliente);
@@ -18,7 +21,19 @@ class ControladorWebMiCuenta extends Controller
         }
     }
 
-    public function guardar(){
-        
+    public function guardar(Request $request)
+    {
+        if (Session::get("idcliente") && Session::get("idcliente") > 0) {
+            $idCliente = Session::get("idcliente");
+
+            // Obtener el cliente existente
+            $cliente = new Cliente();
+            $cliente->obtenerPorId($idCliente);
+            $cliente->guardar();
+
+            return view("web.mi-cuenta", compact("cliente"));
+        } else {
+            return redirect("/login");
+        }
     }
 }
