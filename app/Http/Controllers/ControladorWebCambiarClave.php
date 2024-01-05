@@ -17,18 +17,20 @@ class ControladorWebCambiarClave extends Controller
       public function cambiarClave(Request $request)
       {
             $cliente = new Cliente();
+
             $aCliente = $cliente->obtenerPorId(Session::get('idcliente'));
-            if ($request->input('txtClave') == $aCliente->clave) {
+            // print_r(password_verify($request->input('txtClave'), $aCliente->clave));
+            if (password_verify($request->input('txtClave'), $aCliente->clave)) {
                   if ($request->input('txtclaveNueva') == $request->input('txtRepetirClave')) {
-                        $cliente->clave = $request->input('txtclaveNueva');
+                        $cliente->clave = password_hash($request->input('txtclaveNueva'), PASSWORD_DEFAULT);
                         $cliente->actualizarClave();
-                        $msg="Se actualizo la clave correctamente";
-                        return view('web.mi-cuenta',compact('msg'));
+                        $msg = "Se actualizo la clave correctamente";
+                        return redirect('/mi-cuenta');
                   } else {
                         $msg = "Las claves ingresadas no son iguales, por favor intentelo nuevamente";
                         return view('web.cambiarClave', compact('msg'));
                   }
-            }else {
+            } else {
                   $msg = "La clave ingresada es incorrecta, por favor intentelo nuevamente";
                   return view('web.cambiarClave', compact('msg'));
             }
