@@ -220,7 +220,7 @@ class Cliente extends Model
     {
         $sql = "SELECT 
             clave 
-            FROM clientes Where correo = '$correo'";
+            FROM clientes WHERE correo = '$correo'";
     }
 
     public function encriptarClave($clave)
@@ -229,8 +229,19 @@ class Cliente extends Model
         return $claveEncriptada;
     }
 
-    public function validarClave($claveIngresada, $claveBBDD)
+    public function validarClave($idCliente)
     {
-        return password_verify($claveIngresada, $claveBBDD);
+        $sql = "SELECT
+        clave FROM clientes WHERE idcliente = $idCliente";
+    }
+
+    public function actualizarClave()
+    {
+        $sql = "UPDATE clientes SET
+        clave = ? Where idcliente=?";
+        $affected = DB::update($sql, [
+            $this->clave,
+            $this->idcliente
+        ]);
     }
 }

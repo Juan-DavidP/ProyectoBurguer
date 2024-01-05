@@ -39,7 +39,7 @@
                                     <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" required>
                               </div>
                               <div class="form-group col-lg-6 mb-3">
-                                    <label>Repetir contraseña:</label>
+                                    <label>Repetir clave:</label>
                                     <input type="password" id="txtRepetirClave" name="txtRepetirClave" class="form-control" required>
                               </div>
                               <div id="msg"></div>

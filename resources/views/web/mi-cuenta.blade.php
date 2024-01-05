@@ -16,6 +16,13 @@
             <div class="heading_container">
                   <h2>Datos del usuario</h2>
             </div>
+            @if (isset($msg))
+            <div class="row">
+                  <div class="col-12">
+                        <?php echo $msg; ?>
+                  </div>
+            </div>
+            @endif
             <div class="form_container mb-4">
                   <form id="form1" method="POST" class="mb-4">
                         <div class="row">
@@ -35,6 +42,9 @@
                               <div class="form-group col-lg-6 mb-3">
                                     <label>Correo:</label>
                                     <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required value="{{ $cliente->correo }}">
+                              </div>
+                              <div class="col-6">
+                                    <a href="/cambiarClave">Cambiar clave</a>
                               </div>
                               <div class="form-group col-12 d-flex justify-content-center mb-4">
                                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Guardar</button>
