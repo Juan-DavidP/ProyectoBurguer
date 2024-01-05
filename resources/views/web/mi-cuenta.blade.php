@@ -60,7 +60,6 @@
                   <thead>
                         <tr>
                               <th>Fecha</th>
-                              <th>Producto</th>
                               <th>Sucursal</th>
                               <th>Estado</th>
                               <th>Total</th>
@@ -71,7 +70,6 @@
                         <?php foreach ($aPedidos as $pedido) : ?>
                               <tr>
                                     <td><?= $pedido->fecha ?></td>
-                                    <td><?= $pedido->total ?></td>
                                     <td><?= $pedido->fk_idsucursal ?></td>
                                     <td><?= $pedido->fk_idestado ?></td>
                                     <td><?= $pedido->total ?></td>
