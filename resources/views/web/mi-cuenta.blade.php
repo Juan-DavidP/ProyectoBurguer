@@ -16,13 +16,13 @@
             <div class="heading_container">
                   <h2>Datos del usuario</h2>
             </div>
-            <?php if (Session('msg') != "") : ?>
-                  <div class="form_container">
-                        <div class="col-12 alert-success p-2 mb-2">
-                              <?php echo Session('msg'); ?>
-                        </div>
+            @if(Session('msg'))
+            <div class="form_container">
+                  <div class="col-12 alert-success p-2 mb-2">
+                        <?php echo Session('msg'); ?>
                   </div>
-            <?php endif; ?>
+            </div>
+            @endif
             <div class="form_container mb-4">
                   <form id="form1" method="POST" class="mb-4">
                         <div class="row">
