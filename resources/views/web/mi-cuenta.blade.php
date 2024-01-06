@@ -16,13 +16,13 @@
             <div class="heading_container">
                   <h2>Datos del usuario</h2>
             </div>
-            @if (isset($msg))
-            <div class="row">
-                  <div class="col-12">
-                        <?php echo $msg; ?>
+            <?php if (Session('msg') != "") : ?>
+                  <div class="form_container">
+                        <div class="col-12 alert-success p-2 mb-2">
+                              <?php echo Session('msg'); ?>
+                        </div>
                   </div>
-            </div>
-            @endif
+            <?php endif; ?>
             <div class="form_container mb-4">
                   <form id="form1" method="POST" class="mb-4">
                         <div class="row">
@@ -44,7 +44,7 @@
                                     <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" required value="{{ $cliente->correo }}">
                               </div>
                               <div class="col-6">
-                                    <a href="/cambiarClave">Cambiar clave</a>
+                                    <a href="/cambiar-clave">Cambiar clave</a>
                               </div>
                               <div class="form-group col-12 d-flex justify-content-center mb-4">
                                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Guardar</button>

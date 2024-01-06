@@ -11,7 +11,12 @@ class ControladorWebCambiarClave extends Controller
 
       public function index()
       {
-            return view('web.cambiarClave');
+            if (Session::get('idcliente') > 0) {
+                  return view('web.cambiarClave');
+            }
+            else {
+                  return redirect('/login');
+            }
       }
 
       public function cambiarClave(Request $request)
@@ -19,15 +24,15 @@ class ControladorWebCambiarClave extends Controller
             $cliente = new Cliente();
 
             $aCliente = $cliente->obtenerPorId(Session::get('idcliente'));
-            // print_r(password_verify($request->input('txtClave'), $aCliente->clave));
             if (password_verify($request->input('txtClave'), $aCliente->clave)) {
                   if ($request->input('txtclaveNueva') == $request->input('txtRepetirClave')) {
                         $cliente->clave = password_hash($request->input('txtclaveNueva'), PASSWORD_DEFAULT);
                         $cliente->actualizarClave();
                         $msg = "Se actualizo la clave correctamente";
-                        return redirect('/mi-cuenta');
+                        // return redirect('/mi-cuenta');
+                        return redirect('/mi-cuenta')->with('msg', $msg);
                   } else {
-                        $msg = "Las claves ingresadas no son iguales, por favor intentelo nuevamente";
+                        $msg = "Las claves no coinciden, por favor intentelo nuevamente";
                         return view('web.cambiarClave', compact('msg'));
                   }
             } else {
