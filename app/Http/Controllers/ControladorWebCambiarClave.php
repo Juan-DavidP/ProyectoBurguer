@@ -26,7 +26,7 @@ class ControladorWebCambiarClave extends Controller
             $aCliente = $cliente->obtenerPorId(Session::get('idcliente'));
             if (password_verify($request->input('txtClave'), $aCliente->clave)) {
                   if ($request->input('txtclaveNueva') == $request->input('txtRepetirClave')) {
-                        $cliente->clave = password_hash($request->input('txtclaveNueva'), PASSWORD_DEFAULT);
+                        $cliente->clave = $cliente->encriptarClave($request->input('txtclaveNueva'));
                         $cliente->actualizarClave();
                         $msg = "Se actualizo la clave correctamente";
                         // return redirect('/mi-cuenta');
