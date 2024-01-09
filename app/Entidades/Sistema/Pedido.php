@@ -183,4 +183,25 @@ class Pedido extends Model
             $this->idpedido
         ]);
     }
+
+    public function insertar(){
+$sql = "INSERT INTO pedidos (
+         fecha,
+         total,
+         fk_idcliente,
+         fk_idsucursal,
+         fk_idestado,
+         metodo_pago
+            ) VALUES (?, ?, ?, ?, ?, ?);";
+        $result = DB::insert($sql, [
+            $this->fecha,
+            $this->total,
+            $this->fk_idcliente,
+            $this->fk_idsucursal,
+            $this->fk_idestado,
+            $this->metodo_pago,
+        ]);
+        return $this->idpedido = DB::getPdo()->lastInsertId();
+
+    }
 }

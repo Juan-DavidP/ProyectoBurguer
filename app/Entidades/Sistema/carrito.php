@@ -22,6 +22,7 @@ class Carrito extends Model
             P.nombre,
             P.imagen,
             P.precio,
+            CP.fk_idproducto,
             P.descripcion 
             from carritos_productos CP
             INNER JOIN clientes CL ON CP.fk_idcliente = CL.idcliente
@@ -38,8 +39,14 @@ class Carrito extends Model
                   $this->cantidad = $lstRetorno[0]->cantidad;
                   return $this;
             }
-            return null;
+            return array();
       }
+
+    public function eliminarPorCliente($idCliente)
+    {
+        $sql = "DELETE FROM carritos_productos WHERE fk_idcliente=?";
+        $affected = DB::delete($sql, [$idCliente]);
+    }
 
        public function insertar()
     {

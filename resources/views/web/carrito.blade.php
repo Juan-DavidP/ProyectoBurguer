@@ -1,6 +1,7 @@
 @extends('web.plantilla')
 @section('contenido')
-
+<form action="" method="POST">
+<input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
 <div class="container-xxl py-6">
       <div class="heading_container text-center pt-5">
             <h2>Mi carrito</h2>
@@ -49,7 +50,21 @@
                               <option value="mercadopago">Mercadopago</option>
                         </select>
                   </div>
+                  <div class="col-12">
+                        <label for="lstMetodoDePago">Seleccione la sucursal</label>
+                        <select name="lstSucursal" id="lstSucursal" class="form-control">
+                              @foreach($aSucursales as $sucursal)
+                                    <option value="{{ $sucursal->idsucursal }}">{{ $sucursal->nombre }}</option>
+                              @endforeach
+                        </select>
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="col-12 mx-auto py-5">
+                        <button name="btnComprar" type="submit" class="btn btn-primary">Finalizar compra</button>
+                  </div>
             </div>
       </div>
 </div>
+</form>
 @endsection
