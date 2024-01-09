@@ -6,7 +6,7 @@
             <div class="heading_container text-center pt-5">
                   <h2>Mi carrito</h2>
             </div>
-            @if(isset($produtos))
+            @if(count($aProductos) > 0)
             <div class="panel-body">
                   <div id="msg"></div>
                   <div class="row mt-5">
@@ -20,6 +20,7 @@
                                                 <th>Cantidad</th>
                                                 <th>Descripción</th>
                                                 <th>Precio</th>
+                                                <th>Eliminar</th>
                                           </tr>
                                     </thead>
                                     <tbody>
@@ -31,6 +32,7 @@
                                                 <td><?php echo $producto->cantidad ?></td>
                                                 <td><?php echo $producto->descripcion ?></td>
                                                 <td><?php echo number_format($producto->precio, 0, ",", ".") ?></td>
+                                                <td><a href="/carrito/eliminar/<?php echo $producto->fk_idproducto; ?>" class="btn btn-danger">Eliminar</a></td>
                                                 <?php $total += $producto->cantidad * $producto->precio; ?>
                                           </tr>
                                           @endforeach
@@ -51,7 +53,7 @@
                               </select>
                         </div>
                         <div class="col-12">
-                              <label for="lstMetodoDePago">Seleccione la sucursal</label>
+                              <label for="lstSucursal">Seleccione la sucursal</label>
                               <select name="lstSucursal" id="lstSucursal" class="form-control">
                                     @foreach($aSucursales as $sucursal)
                                     <option value="{{ $sucursal->idsucursal }}">{{ $sucursal->nombre }}</option>

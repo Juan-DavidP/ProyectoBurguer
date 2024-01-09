@@ -38,6 +38,12 @@ Route::group(array('domain' => '127.0.0.1'), function () {
     Route::get('/logout', 'ControladorWebLogout@salir');
     Route::get('/cambiar-clave', 'ControladorWebCambiarClave@index');
     Route::post('/cambiar-clave', 'ControladorWebCambiarClave@cambiarClave');
+
+    Route::get("/mercado-pago/aprobado/{id}", "ControladorWebCarrito@aprobarCompra");
+    Route::get("/mercado-pago/pendiente/{id}", "ControladorWebCarrito@rechazarCompra");
+    Route::get("/mercado-pago/error/{id}", "ControladorWebCarrito@rechazarCompra");
+    
+    Route::get("/carrito/eliminar/{id}", "ControladorWebCarrito@eliminarProductoDelCarrito");
     
     
  

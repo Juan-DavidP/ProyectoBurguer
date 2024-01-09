@@ -48,6 +48,14 @@ class Carrito extends Model
         $affected = DB::delete($sql, [$idCliente]);
     }
 
+    public function eliminarPorClienteProducto($idCliente, $idProducto)
+    {
+        $sql = "DELETE FROM carritos_productos 
+                WHERE fk_idcliente=? AND fk_idproducto=?
+                ";
+        $affected = DB::delete($sql, [$idCliente, $idProducto]);
+    }
+
        public function insertar()
     {
         $sql = "INSERT INTO carritos_productos (

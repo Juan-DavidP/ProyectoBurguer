@@ -11,7 +11,7 @@ class Pedido extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idpedido', 'fecha', 'total', 'fk_idcliente', 'fk_idsucursal', 'fk_idestado', 'metodo_pago'
+        'idpedido', 'fecha', 'total', 'fk_idcliente', 'fk_idsucursal', 'fk_idestado', 'metodo_pago',
     ];
 
     protected $hidden = [];
@@ -25,12 +25,12 @@ class Pedido extends Model
 
     public function obtenerTodos()
     {
-        $sql = "SELECT 
-        idpedido, 
-        fecha, 
-        total, 
-        fk_idcliente, 
-        fk_idsucursal, 
+        $sql = "SELECT
+        idpedido,
+        fecha,
+        total,
+        fk_idcliente,
+        fk_idsucursal,
         fk_idestado,
         metodo_pago FROM pedidos";
         $lstRetorno = DB::select($sql);
@@ -39,12 +39,12 @@ class Pedido extends Model
 
     public function obtenerPorCliente($idCliente)
     {
-        $sql = "SELECT 
-                    idpedido, 
-                    fecha, 
-                    total, 
-                    fk_idcliente, 
-                    fk_idsucursal, 
+        $sql = "SELECT
+                    idpedido,
+                    fecha,
+                    total,
+                    fk_idcliente,
+                    fk_idsucursal,
                     fk_idestado,
                     metodo_pago,
                     comentario
@@ -56,12 +56,12 @@ class Pedido extends Model
 
     public function obtenerPorProducto($idProducto)
     {
-        $sql = "SELECT 
-                p.idpedido, 
-                p.fecha, 
-                p.total, 
-                p.fk_idcliente, 
-                p.fk_idsucursal, 
+        $sql = "SELECT
+                p.idpedido,
+                p.fecha,
+                p.total,
+                p.fk_idcliente,
+                p.fk_idsucursal,
                 p.fk_idestado,
                 p.metodo_pago
             FROM pedidos p
@@ -75,12 +75,12 @@ class Pedido extends Model
 
     public function obtenerPorSucursal($idSucursal)
     {
-        $sql = "SELECT 
-                    idpedido, 
-                    fecha, 
-                    total, 
-                    fk_idcliente, 
-                    fk_idsucursal, 
+        $sql = "SELECT
+                    idpedido,
+                    fecha,
+                    total,
+                    fk_idcliente,
+                    fk_idsucursal,
                     fk_idestado,
                     metodo_pago,
                     comentario
@@ -92,12 +92,12 @@ class Pedido extends Model
 
     public function obtenerPorId($idPedido)
     {
-        $sql = "SELECT 
-        P.idpedido, 
-        P.fecha, 
-        P.total, 
-        P.fk_idcliente, 
-        P.fk_idsucursal, 
+        $sql = "SELECT
+        P.idpedido,
+        P.fecha,
+        P.total,
+        P.fk_idcliente,
+        P.fk_idsucursal,
         P.fk_idestado,
         P.metodo_pago,
         P.comentario,
@@ -132,7 +132,6 @@ class Pedido extends Model
         $affected = DB::delete($sql, [$this->idpedido]);
     }
 
-
     public function obtenerFiltrado()
     {
         $request = $_REQUEST;
@@ -143,7 +142,7 @@ class Pedido extends Model
             3 => 'A.fk_idsucursal',
             4 => 'A.fk_idestado',
             5 => 'A.total',
-            6 => 'A.metodo_pago'
+            6 => 'A.metodo_pago',
         );
         $sql = "SELECT DISTINCT
                     A.idpedido,
@@ -180,12 +179,13 @@ class Pedido extends Model
         $affected = DB::update($sql, [
             $this->fk_idestado,
             $this->metodo_pago,
-            $this->idpedido
+            $this->idpedido,
         ]);
     }
 
-    public function insertar(){
-$sql = "INSERT INTO pedidos (
+    public function insertar()
+    {
+        $sql = "INSERT INTO pedidos (
          fecha,
          total,
          fk_idcliente,
@@ -203,5 +203,26 @@ $sql = "INSERT INTO pedidos (
         ]);
         return $this->idpedido = DB::getPdo()->lastInsertId();
 
+    }
+
+    public function aprobar($idPedido)
+    {
+        $sql = "UPDATE pedidos SET
+        fk_idestado = ?
+        WHERE idpedido = ?";
+        $affected = DB::update($sql, [
+            5,
+            $idPedido
+        ]);
+    }
+    public function rechazar($idPedido)
+    {
+        $sql = "UPDATE pedidos SET
+        fk_idestado = ?
+        WHERE idpedido = ?";
+        $affected = DB::update($sql, [
+            6,
+            $idPedido
+        ]);
     }
 }
