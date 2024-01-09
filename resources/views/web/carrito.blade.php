@@ -15,7 +15,6 @@
                                           <th></th>
                                           <th>Nombre</th>
                                           <th>Cantidad</th>
-                                          <th>Extras</th>
                                           <th>Descripción</th>
                                           <th>Precio</th>
                                     </tr>
@@ -27,7 +26,6 @@
                                           <td><img src="/files/<?php echo $producto->imagen ?>" alt="Imagen del producto" class="img-thumbnail" width="150px"></td>
                                           <td><?php echo $producto->nombre ?></td>
                                           <td><?php echo $producto->cantidad ?></td>
-                                          <td></td>
                                           <td><?php echo $producto->descripcion ?></td>
                                           <td><?php echo number_format($producto->precio, 0, ",", ".") ?></td>
                                           <?php $total += $producto->cantidad * $producto->precio; ?>
@@ -40,6 +38,16 @@
                               </tfoot>
                         </table>
 
+
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="col-12">
+                        <label for="lstMetodoDePago">Seleccionar método de pago</label>
+                        <select name="lstMetodoDePago" id="lstMetodoDePago" class="form-control">
+                              <option value="sucursal">Pago en sucursal</option>
+                              <option value="mercadopago">Mercadopago</option>
+                        </select>
                   </div>
             </div>
       </div>

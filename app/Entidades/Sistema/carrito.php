@@ -19,7 +19,7 @@ class Carrito extends Model
             $sql = " SELECT 
             CP.idcarritoproducto,
             CP.cantidad,
-            Cl.nombre,
+            P.nombre,
             P.imagen,
             P.precio,
             P.descripcion 

@@ -96,8 +96,7 @@
                                     <th></th>
                                     <th>Nombre</th>
                                     <th>Cantidad</th>
-                                    <th>Extras</th>
-                                    <th>Ingredientes a quitar</th>
+                                    <th>Descripción</th>
                                     <th>Precio</th>
                               </tr>
                         </thead>
@@ -108,7 +107,6 @@
                                     <td><img src="/files/<?php echo $producto->imagen ?>" alt="Imagen del producto" class="img-thumbnail" width="150px"></td>
                                     <td><?php echo $producto->nombre ?></td>
                                     <td><?php echo $producto->cantidad ?></td>
-                                    <td></td>
                                     <td><?php echo $producto->descripcion ?></td>
                                     <td><?php echo $producto->precio ?></td>
                               </tr>
