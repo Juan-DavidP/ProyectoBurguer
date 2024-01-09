@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Entidades\Sistema\Producto;
 use App\Entidades\Sistema\Categoria;
 use App\Entidades\Sistema\Cliente;
+use App\Entidades\Sistema\Carrito;
 
 use Session;
 
@@ -36,7 +37,10 @@ class ControladorWebTakeaway extends Controller
             $cliente->obtenerPorId($idCliente);
     
             $carrito = new Carrito();
-            $carrito->agregarAlCarrito($idCliente, $idProducto, $cantidad);
+            $carrito->fk_idcliente = $idCliente;
+            $carrito->fk_idproducto =$idProducto;
+            $carrito->cantidad =  $cantidad ;
+            $idCarrito = $carrito->insertar();
             $msg="Agregado correctamente.";
 
             // Obtén las categorías desde la base de datos o como lo tengas implementado

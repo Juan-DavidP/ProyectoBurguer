@@ -7,25 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carrito extends Model
 {
-      protected $table = 'carrito';
+      protected $table = 'carritos_productos';
       public $timestamps = false;
 
-      protected $fillable = ['idcarritoproducto', 'fk_idcarrito', 'fk_idproducto', 'cantidad'];
+      protected $fillable = ['idcarritoproducto', 'fk_idcliente', 'fk_idproducto', 'cantidad'];
 
       protected $hidden = [];
 
       public function obtenerPorCarrito($idcliente)
       {
             $sql = " SELECT 
-            C.idcarrito,
+            CP.idcarritoproducto,
             CP.cantidad,
             Cl.nombre,
             P.imagen,
             P.precio,
             P.descripcion 
-            from carritos C
-            INNER JOIN carritos_productos CP ON  C.idcarrito  = CP.fk_idcarrito
-            INNER JOIN clientes CL ON C.fk_idcliente = CL.idcliente
+            from carritos_productos CP
+            INNER JOIN clientes CL ON CP.fk_idcliente = CL.idcliente
             INNER JOIN productos P ON CP.fk_idproducto = P.idproducto 
             WHERE CL.idcliente = $idcliente
            ;";
@@ -42,7 +41,19 @@ class Carrito extends Model
             return null;
       }
 
-      public function agregarAlCarrito($idCliente, $idProducto, $cantidad){
-            
-      }
+       public function insertar()
+    {
+        $sql = "INSERT INTO carritos_productos (
+                 fk_idcliente,
+                 fk_idproducto,
+                 cantidad
+            ) VALUES (?, ?, ?);";
+        $result = DB::insert($sql, [
+            $this->fk_idcliente,
+            $this->fk_idproducto,
+            $this->cantidad
+        ]);
+        return $this->idcarritoproducto = DB::getPdo()->lastInsertId();
+    }
+
 }

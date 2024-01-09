@@ -48,7 +48,11 @@ class ControladorWebMiCuenta extends Controller
 
             $cliente->guardar();
 
-            return view("web.mi-cuenta", compact("cliente"));
+              $pedido = new Pedido();
+            // Obtén todos los pedidos
+            $aPedidos = $pedido->obtenerTodos();
+
+            return view("web.mi-cuenta", compact("cliente", "aPedidos"));
         } else {
             return redirect("/login");
         }
