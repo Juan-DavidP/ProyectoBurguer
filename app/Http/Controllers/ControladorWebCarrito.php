@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Entidades\Sistema\Carrito;
 use App\Entidades\Sistema\Pedido;
 use App\Entidades\Sistema\ProductoPedido;
-use App\Entidades\Sistema\Sucursal;
 use App\Entidades\Sistema\Cliente;
+use App\Entidades\Sistema\Sucursal;
 use Illuminate\Http\Request;
 use Session;
 use MercadoPago\Item;
@@ -73,7 +73,7 @@ class ControladorWebCarrito extends Controller
 
                   //Vaciamos el carrito
                   $carrito->eliminarPorCliente($idCliente);
-                  return "Gracias";
+                  return view('web.pagina-agradecimiento');
             } else if ($metodoDePago == "mercadopago") {
                   $access_token = "TEST-6390311397564415-072818-d4115be4557ceb9d5465f4680d29995a__LB_LA__-70360379";
                   SDK::setClientId(config("payment-methods.mercadopago.client"));
@@ -101,16 +101,16 @@ class ControladorWebCarrito extends Controller
                   $payer->email = $cliente->email;
                   $payer->date_created = date('Y-m-d H:m:s');
                   $payer->identification = array(
-                  "type" => "DNI",
-                  "number" => $cliente->dni,
+                        "type" => "DNI",
+                        "number" => $cliente->dni,
                   );
                   $preference->payer = $payer;
 
                   //URL de configuración para indicarle a MP
                   $preference->back_urls = [
-                  "success" => "http://127.0.0.1:8000/mercado-pago/aprobado/" .  $idPedido,
-                  "pending" => "http://127.0.0.1:8000/mercado-pago/pendiente/" .  $idPedido,
-                  "failure" => "http://127.0.0.1:8000/mercado-pago/error/" .  $idPedido,
+                        "success" => "http://127.0.0.1:8000/mercado-pago/aprobado/" .  $idPedido,
+                        "pending" => "http://127.0.0.1:8000/mercado-pago/pendiente/" .  $idPedido,
+                        "failure" => "http://127.0.0.1:8000/mercado-pago/error/" .  $idPedido,
                   ];
 
                   $preference->payment_methods = array("installments" => 6);
@@ -121,22 +121,25 @@ class ControladorWebCarrito extends Controller
             }
       }
 
-      public function aprobarCompra($idPedido){
+      public function aprobarCompra($idPedido)
+      {
             $pedido = new Pedido();
             $pedido->aprobar($idPedido);
-            return "Pedido aprobado";
+            return view('web.pedido-aprobado');
       }
 
-      public function rechazarCompra($idPedido){
+      public function rechazarCompra($idPedido)
+      {
             $pedido = new Pedido();
             $pedido->rechazar($idPedido);
-            return "Pedido rechazado";
+            return view('web.pedido-rechazado');
       }
 
-      public function eliminarProductoDelCarrito($idProducto){
-            $idCliente = Session::get("idcliente");
+      public function eliminarProductoDelCarrito($idCarrito)
+      {
             $carrito = new Carrito();
-            $carrito->eliminarPorClienteProducto($idCliente, $idProducto);
+
+            $carrito->eliminarProductoCarrito($idCarrito);
             return redirect("/carrito");
       }
 }

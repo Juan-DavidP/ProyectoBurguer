@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carrito extends Model
 {
-      protected $table = 'carritos_productos';
-      public $timestamps = false;
+    protected $table = 'carritos_productos';
+    public $timestamps = false;
 
-      protected $fillable = ['idcarritoproducto', 'fk_idcliente', 'fk_idproducto', 'cantidad'];
+    protected $fillable = ['idcarritoproducto', 'fk_idcliente', 'fk_idproducto', 'cantidad'];
 
-      protected $hidden = [];
+    protected $hidden = [];
 
-      public function obtenerPorCarrito($idcliente)
-      {
-            $sql = " SELECT 
+    public function obtenerPorCarrito($idcliente)
+    {
+        $sql = " SELECT 
             CP.idcarritoproducto,
             CP.cantidad,
             P.nombre,
@@ -29,18 +29,18 @@ class Carrito extends Model
             INNER JOIN productos P ON CP.fk_idproducto = P.idproducto 
             WHERE CL.idcliente = $idcliente
            ;";
-            $lstRetorno = DB::select($sql);
-            return $lstRetorno;
+        $lstRetorno = DB::select($sql);
+        return $lstRetorno;
 
-            if (count($lstRetorno) > 0) {
-                  $this->idcarritoproducto = $lstRetorno[0]->idcarritoproducto;
-                  $this->fk_idcarrito = $lstRetorno[0]->fk_idcarrito;
-                  $this->fk_idproducto = $lstRetorno[0]->fk_idproducto;
-                  $this->cantidad = $lstRetorno[0]->cantidad;
-                  return $this;
-            }
-            return array();
-      }
+        if (count($lstRetorno) > 0) {
+            $this->idcarritoproducto = $lstRetorno[0]->idcarritoproducto;
+            $this->fk_idcarrito = $lstRetorno[0]->fk_idcarrito;
+            $this->fk_idproducto = $lstRetorno[0]->fk_idproducto;
+            $this->cantidad = $lstRetorno[0]->cantidad;
+            return $this;
+        }
+        return array();
+    }
 
     public function eliminarPorCliente($idCliente)
     {
@@ -48,15 +48,14 @@ class Carrito extends Model
         $affected = DB::delete($sql, [$idCliente]);
     }
 
-    public function eliminarPorClienteProducto($idCliente, $idProducto)
+    public function eliminarProductoCarrito($idCarrito)
     {
-        $sql = "DELETE FROM carritos_productos 
-                WHERE fk_idcliente=? AND fk_idproducto=?
-                ";
-        $affected = DB::delete($sql, [$idCliente, $idProducto]);
+        $sql = "DELETE FROM carritos_productos WHERE idcarritoproducto= ?";
+
+        $affected = DB::delete($sql, [$idCarrito]);
     }
 
-       public function insertar()
+    public function insertar()
     {
         $sql = "INSERT INTO carritos_productos (
                  fk_idcliente,
@@ -70,5 +69,4 @@ class Carrito extends Model
         ]);
         return $this->idcarritoproducto = DB::getPdo()->lastInsertId();
     }
-
 }

@@ -48,9 +48,9 @@
                                     <input type="text" id="txtDni" name="txtDni" class="form-control" required>
                               </div>
                               @if(isset($msg))
-                                    <div class="col-lg-6">
-                                          <div class="alert-danger ps-3"><?php echo $msg; ?></div>
-                                    </div>
+                              <div class="col-lg-6">
+                                    <div class="alert-danger p-3">{{$msg}}</div>
+                              </div>
                               @endif
                               <div class="form-group col-12 d-flex justify-content-center mt-2">
                                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Registrar</button>
