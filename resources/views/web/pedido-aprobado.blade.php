@@ -1,39 +1,20 @@
 @extends("web.plantilla")
 @section('contenido')
 
-<!-- Page Header Start -->
 <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
       <div class="container">
-            <h1 class="display-3 mb-3 animated slideInDown">Muchas gracias por su compra</h1>
-            <!-- <nav aria-label="breadcrumb animated slideInDown">
-                  <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a class="text-body" href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a class="text-body" href="#">Pages</a></li>
-                        <li class="breadcrumb-item text-dark active" aria-current="page">Contáctanos</li>
-                  </ol>
-            </nav> -->
+            <h1 class="display-3 mb-3 animated slideInDown">Su pago se ha realizado correctamente</h1>
+
       </div>
 </div>
-<!-- Page Header End -->
-
-<!-- Contact Start -->
 <div class="container-xxl py-6">
       <div class="container">
             <div class="row g-5 justify-content-center">
                   <div class="col-lg-7 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
-                        <p class="mb-4">Su pago se ha realizado correctamente.</p>
+                        <p class="mb-4">Muchas gracias por su compra.</p>
                         <a href="/takeaway" class="btn btn-primary">Seguir viendo los productos</a>
                   </div>
             </div>
       </div>
 </div>
-<!-- Contact End -->
-
-
-<!-- Google Map Start -->
-<!-- <div class="container-xxl px-0 wow fadeIn" data-wow-delay="0.1s" style="margin-bottom: -6px;">
-      <iframe class="w-100" style="height: 450px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-</div> -->
-<!-- Google Map End -->
-
 @endsection
