@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="web/img/favicon.ico" rel="icon">
+    <link href="/web/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,14 +22,14 @@
     
 
     <!-- Libraries Stylesheet -->
-    <link href="web/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="web/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/web/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/web/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/web/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="web/css/style.css" rel="stylesheet">
+    <link href="/web/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -159,13 +159,13 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="web/lib/wow/wow.min.js"></script>
-    <script src="web/lib/easing/easing.min.js"></script>
-    <script src="web/lib/waypoints/waypoints.min.js"></script>
-    <script src="web/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/web/lib/wow/wow.min.js"></script>
+    <script src="/web/lib/easing/easing.min.js"></script>
+    <script src="/web/lib/waypoints/waypoints.min.js"></script>
+    <script src="/web/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="web/js/main.js"></script>
+    <script src="/web/js/main.js"></script>
 </body>
 
 </html>
